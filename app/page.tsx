@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Github } from 'lucide-react';
+import { ChevronDown, Github } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 
@@ -34,7 +34,7 @@ function Hero() {
                   variant={'outline'}
                   className="flex items-center space-x-2"
                 >
-                  <Github />
+                  <Github className="h-5 w-5" />
                   <span>Star us on GitHub</span>
                 </Button>
               </div>
@@ -55,8 +55,17 @@ function Hero() {
 
 function NavBar() {
   return (
-    <header className="px-4 lg:px-6 xl:px-14 h-14 flex items-center py-12">
-      <h3 className="text-2xl">genkin.ai</h3>
+    <header className="px-4 lg:px-6 xl:px-14 h-14 flex justify-between items-center py-12">
+      <h3 className="text-2xl">
+        <span className="">genkin</span>.ai
+        <span className="animate-ping">_</span>
+      </h3>
+
+      <div>
+        <Button variant={'link'}>Privacy Policy</Button>
+        <Button variant={'link'}>Behind the scenes</Button>
+        <Button>Sign In</Button>
+      </div>
     </header>
   );
 }
