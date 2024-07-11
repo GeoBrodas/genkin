@@ -7,6 +7,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { AI } from './actions';
 
+// account menu bar imports
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { LogOut } from 'lucide-react';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -24,6 +35,7 @@ export default function RootLayout({
         <NavBar />
         <AI
           initialAIState={{
+            //@ts-ignore
             interactions: [],
             messages: [],
           }}
@@ -46,11 +58,36 @@ function NavBar() {
       <div className="flex items-center space-x-2">
         <Button variant={'link'}>Privacy Policy</Button>
 
+        <AccountMenu />
+      </div>
+    </header>
+  );
+}
+
+function AccountMenu() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="focus:outline-none hover:cursor-pointer">
         <Avatar>
           <AvatarImage src="" />
           <AvatarFallback>GV</AvatarFallback>
         </Avatar>
-      </div>
-    </header>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align={'end'}>
+        <DropdownMenuItem className="hover:cursor-pointer">
+          Transaction history
+        </DropdownMenuItem>
+        <DropdownMenuItem className="hover:cursor-pointer">
+          Visit GitHub
+        </DropdownMenuItem>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem className="hover:cursor-pointer">
+          Sign Out <LogOut className="ml-3 h-4 w-4" />
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

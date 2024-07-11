@@ -36,9 +36,10 @@ function IdleDisplayChat({ handleSubmit, input, setInput }) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="flex flex-col w-full max-w-xl py-24 mx-auto stretch">
-        <div className="w-full">hi</div>
+        <div className="w-full"></div>
 
         <ChatInput
+          isFixed={false}
           handleSubmit={handleSubmit}
           input={input}
           setInput={setInput}
@@ -64,6 +65,7 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
         </div>
 
         <ChatInput
+          isFixed={true}
           handleSubmit={handleSubmit}
           input={input}
           setInput={setInput}
@@ -73,11 +75,13 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
   );
 }
 
-function ChatInput({ handleSubmit, input, setInput }) {
+function ChatInput({ handleSubmit, input, setInput, isFixed }) {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        className="fixed text-black bottom-0 w-full max-w-xl p-4 mb-8 border border-red-300 rounded-full focus:outline-none"
+        className={`${
+          isFixed && 'fixed bottom-0'
+        } text-black w-full max-w-xl p-4 mb-8 border border-red-300 rounded-full focus:outline-none`}
         value={input}
         placeholder="Type your prompt"
         onChange={(e) => setInput(e.target.value)}
