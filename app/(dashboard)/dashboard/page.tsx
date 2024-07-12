@@ -7,6 +7,7 @@ import { SendHorizontal } from 'lucide-react';
 import UserMessage from '@/components/ai/UserMessage';
 import BotMessage from '@/components/ai/BotMessage';
 import ListofTransactions from '@/components/ai/ListofTransactions';
+import InputTransaction from '@/components/ai/InputTransaction';
 
 export default function DashboardPage() {
   const [input, setInput] = useState<string>('');
@@ -90,7 +91,7 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
             </div>
           ))}
           <UserMessage content="Hello Genkin!" />
-          <ListofTransactions />
+          <InputTransaction state="idle" />
         </div>
 
         <ChatInput
