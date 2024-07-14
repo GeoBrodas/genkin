@@ -88,7 +88,7 @@ export async function submitUserMessage(input: string) {
                   date: z
                     .string()
                     .describe(
-                      'Dtae on which the transaction was made. If today, take current date'
+                      'Date on which the transaction was made. If today, take current date'
                     ),
                   transactionDescription: z
                     .string()

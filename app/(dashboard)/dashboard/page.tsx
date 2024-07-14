@@ -33,8 +33,33 @@ export default function DashboardPage() {
     setConversation((currentConversation) => [...currentConversation, message]);
   };
 
+  const exampleHandlerPrompt = async (input: string) => {
+    setIsNotIdle(false);
+
+    //@ts-ignore
+    setConversation((currentConversation) => [
+      ...currentConversation,
+      {
+        id: nanoid(),
+        display: <UserMessage content={input} />,
+      },
+    ]);
+
+    try {
+      const response = await submitUserMessage(input);
+
+      setConversation((currentConversation) => [
+        ...currentConversation,
+        response,
+      ]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return idle ? (
     <IdleDisplayChat
+      exampleHandler={exampleHandlerPrompt}
       handleSubmit={handleSubmit}
       input={input}
       setInput={setInput}
@@ -49,7 +74,12 @@ export default function DashboardPage() {
   );
 }
 
-function IdleDisplayChat({ handleSubmit, input, setInput }) {
+function IdleDisplayChat({
+  handleSubmit,
+  input,
+  setInput,
+  exampleHandlerPrompt,
+}) {
   return (
     <main className="flex flex-col items-center pt-16">
       <div className="flex flex-col h-[34rem] justify-between w-full max-w-2xl pt-10 mx-auto stretch">
@@ -67,7 +97,14 @@ function IdleDisplayChat({ handleSubmit, input, setInput }) {
 
         <div className="flex flex-col space-y-4">
           <div className="grid gap-4 grid-cols-2">
-            <div className="bg-rose-50 hover:bg-rose-100 transition duration-100 ease-in-out rounded-lg p-4 hover:cursor-pointer">
+            <div
+              onClick={() =>
+                exampleHandlerPrompt(
+                  `List all transaction from the last 10 days`
+                )
+              }
+              className="bg-rose-50 hover:bg-rose-100 transition duration-100 ease-in-out rounded-lg p-4 hover:cursor-pointer"
+            >
               <h5 className="font-semibold">List all trasactions</h5>
               <p>from the past 20 days</p>
             </div>
