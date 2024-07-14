@@ -1,26 +1,36 @@
 'use client';
 
-import { useUIState } from 'ai/rsc';
+import { useActions, useUIState } from 'ai/rsc';
 import { AI } from '../actions';
 import { useState } from 'react';
 import { SendHorizontal } from 'lucide-react';
 import UserMessage from '@/components/ai/UserMessage';
-import BotMessage from '@/components/ai/BotMessage';
-import ListofTransactions from '@/components/ai/ListofTransactions';
-import InputTransaction from '@/components/ai/InputTransaction';
-import LoadingTransactions from '@/components/ai/LoadingTransactions';
-import Spinner from '@/components/ai/Spinner';
+import { nanoid } from '@/lib/helpers';
 
 export default function DashboardPage() {
   const [input, setInput] = useState<string>('');
   const [idle, setIsNotIdle] = useState<boolean>(true);
+  const { submitUserMessage } = useActions();
   const [conversation, setConversation] = useUIState<typeof AI>();
+
+  console.log(conversation);
 
   // chat submit action
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    if (idle) {
-      setIsNotIdle(false);
-    }
+    setIsNotIdle(false);
+    e.preventDefault();
+    setInput('');
+
+    // @ts-ignore
+    setConversation((currentConversation) => [
+      ...currentConversation,
+      {
+        id: nanoid(),
+        display: <UserMessage content={input} />,
+      },
+    ]);
+    const message = await submitUserMessage(input);
+    setConversation((currentConversation) => [...currentConversation, message]);
   };
 
   return idle ? (
@@ -84,16 +94,13 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
     <main className="flex min-h-screen flex-col items-center justify-between pt-16">
       <div className="flex flex-col w-full max-w-2xl pt-10 mx-auto stretch">
         <div className="space-y-6">
-          {conversation.map((m: any) => (
-            <div key={m.id} className="whitespace-pre-wrap">
-              <span className="font-bold">
-                {m.role === 'user' ? 'User: ' : 'AI: '}
-              </span>
-              <span>{m.content}</span>
+          {conversation.map((message: any, i: number) => (
+            <div key={i}>
+              {message.spinner}
+              {message.display}
+              {message.attachments}
             </div>
           ))}
-          <UserMessage content="Hello Genkin! Fetch me tranasctions from the last 10 days" />
-          <Spinner />
         </div>
 
         <ChatInput

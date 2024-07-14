@@ -14,6 +14,7 @@ import { z } from 'zod';
 import BotMessage from '@/components/ai/BotMessage';
 import InputTransaction from '@/components/ai/InputTransaction';
 import ListofTransactions from '@/components/ai/ListofTransactions';
+import UserMessage from '@/components/ai/UserMessage';
 
 // google api key
 const google = createGoogleGenerativeAI({
@@ -29,13 +30,18 @@ export async function submitUserMessage(input: string) {
 
   // update aiState with user input
   aiState.update({
-    ...aiState.get().messages,
-    messages: {
-      id: nanoid(),
-      role: 'user',
-      content: `${aiState.get().interactions.join('\n\n')}\n\n${input}`,
-    },
+    ...aiState.get(),
+    messages: [
+      ...aiState.get().messages,
+      {
+        id: nanoid(),
+        role: 'user',
+        content: `${aiState.get().interactions.join('\n\n')}\n\n${input}`,
+      },
+    ],
   });
+
+  console.log(aiState.get());
 
   // create history object -> for streamText method
   const history = aiState.get().messages.map((message: any) => ({
@@ -250,12 +256,14 @@ export const AI = createAI<any[], React.ReactNode[]>({
   initialUIState: [],
   initialAIState: { chatId: nanoid(), interactions: [], messages: [] },
   actions: {
-    //   submitUserMessage,
+    submitUserMessage,
   },
   unstable_onGetUIState: async () => {
     'use server';
 
     const aiState = getAIState();
+
+    console.log(aiState);
 
     if (aiState) {
       const uiState = getUIStateFromAIState(aiState);
@@ -264,6 +272,7 @@ export const AI = createAI<any[], React.ReactNode[]>({
   },
 });
 
+// !change the props!
 export const getUIStateFromAIState = (aiState: Chat) => {
   return aiState.messages
     .filter((message) => message.role !== 'system')
@@ -272,18 +281,14 @@ export const getUIStateFromAIState = (aiState: Chat) => {
       display:
         message.role === 'assistant' ? (
           message.display?.name === 'listTransactions' ? (
-            <div>
-              {message.display.props.listOfDoctors.map((doctor, index) => (
-                <div key={index}>{doctor.name}</div>
-              ))}
-            </div>
+            <ListofTransactions />
           ) : message.display?.name === 'createTransactions' ? (
-            <div className="bg-yellow-200">{message.content}</div>
+            <InputTransaction />
           ) : (
             <BotMessage content={message.content} />
           )
         ) : message.role === 'user' ? (
-          <div>{message.content}</div>
+          <UserMessage content={message.content} />
         ) : (
           <BotMessage content={message.content} />
         ),
