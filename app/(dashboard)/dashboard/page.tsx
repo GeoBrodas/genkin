@@ -8,6 +8,8 @@ import UserMessage from '@/components/ai/UserMessage';
 import BotMessage from '@/components/ai/BotMessage';
 import ListofTransactions from '@/components/ai/ListofTransactions';
 import InputTransaction from '@/components/ai/InputTransaction';
+import LoadingTransactions from '@/components/ai/LoadingTransactions';
+import Spinner from '@/components/ai/Spinner';
 
 export default function DashboardPage() {
   const [input, setInput] = useState<string>('');
@@ -91,8 +93,7 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
             </div>
           ))}
           <UserMessage content="Hello Genkin! Fetch me tranasctions from the last 10 days" />
-          {/* <InputTransaction state="idle" /> */}
-          <ListofTransactions />
+          <Spinner />
         </div>
 
         <ChatInput

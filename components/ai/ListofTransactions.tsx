@@ -38,7 +38,7 @@ function ListofTransactions({ data }: Props) {
           </TableHeader>
 
           <TableBody className="">
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((_, i) => (
+            {[0, 1, 2, 4, 5].map((_, i) => (
               <TableRow key={i} className="w-full">
                 <TableCell className="font-medium">23-10-2001</TableCell>
                 <TableCell>Paid credit card bills</TableCell>

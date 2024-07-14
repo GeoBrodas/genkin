@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LogOut } from 'lucide-react';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -49,10 +50,12 @@ export default function RootLayout({
 function NavBar() {
   return (
     <header className="px-4 lg:px-6 xl:px-14 h-14 flex justify-between items-center py-12">
-      <h3 className="text-2xl">
-        <span className="">genkin</span>.ai
-        <span className="animate-ping">_</span>
-      </h3>
+      <Link href="/">
+        <h3 className="text-2xl">
+          <span className="">genkin</span>.ai
+          <span className="animate-ping">_</span>
+        </h3>
+      </Link>
 
       <div className="flex items-center space-x-2">
         <Button variant={'link'}>Privacy Policy</Button>
