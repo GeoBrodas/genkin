@@ -1,13 +1,16 @@
-import { Button } from '@/components/ui/button';
-import { ChevronDown, Github } from 'lucide-react';
-import Link from 'next/link';
 import React from 'react';
+import { Github, MessageCircle, PieChart, Sparkle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import { Badge } from '@/components/ui/badge';
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-[100dvh]">
+    <main className="flex flex-col min-h-[100dvh] pb-10">
       <NavBar />
       <Hero />
+
+      <About />
     </main>
   );
 }
@@ -67,5 +70,63 @@ function NavBar() {
         <Button>Sign In</Button>
       </div>
     </header>
+  );
+}
+
+function About() {
+  return (
+    <main className="flex-1">
+      <section className="w-full grid grid-cols-2 place-items-center px-10 pt-10">
+        <div className="w-full">
+          <Badge variant={'secondary'} className="mb-2">
+            What&apos;s Genkin?
+          </Badge>
+          <h3 className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none">
+            Talk Natural
+          </h3>
+
+          <p className="my-4">
+            A new approach to web tools. Using the power of AI and React Server
+            components
+          </p>
+
+          <ul className="pl-4 my-10 text-lg flex flex-col space-y-4">
+            <li className="flex items-center">
+              <Sparkle className="mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />
+              <span className="w-fit px-2">
+                {' '}
+                Genkin uses Gemini 1.5 flash to deliver repsonses to prompts
+                quickly.
+              </span>
+            </li>
+            <li className="flex items-center">
+              <MessageCircle className="mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />
+              <span className="w-fit px-2">
+                Use Genkin like any other prompt assistant. Talk to it for
+                adding your day-to-day transactions. eg: &quot;Hey Genkin, I
+                bought a pair of glasses today worth $50&quot;
+              </span>
+            </li>
+            <li className="flex items-center">
+              <PieChart className="mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />{' '}
+              <span className="w-fit px-2">
+                Ananlyse your transactions using interactive charts and
+                in-detail analysis. If lucky, you'll get some tips from Genkin
+                on how to save money!
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <Image
+            className="rounded-2xl shadow-xl"
+            alt="about image"
+            width={900}
+            height={748}
+            src={'/about.png'}
+          />
+        </div>
+      </section>
+    </main>
   );
 }

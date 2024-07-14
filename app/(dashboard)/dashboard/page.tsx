@@ -81,7 +81,7 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between pt-16">
       <div className="flex flex-col w-full max-w-2xl pt-10 mx-auto stretch">
-        <div className="space-y-4">
+        <div className="space-y-6">
           {conversation.map((m: any) => (
             <div key={m.id} className="whitespace-pre-wrap">
               <span className="font-bold">
@@ -90,8 +90,9 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
               <span>{m.content}</span>
             </div>
           ))}
-          <UserMessage content="Hello Genkin!" />
-          <InputTransaction state="idle" />
+          <UserMessage content="Hello Genkin! Fetch me tranasctions from the last 10 days" />
+          {/* <InputTransaction state="idle" /> */}
+          <ListofTransactions />
         </div>
 
         <ChatInput
