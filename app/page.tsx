@@ -1,8 +1,9 @@
 import React from 'react';
-import { Github, MessageCircle, PieChart, Sparkle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import AboutImage from '../public/about.png';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Github, MessageCircle, PieChart, Sparkle } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -123,7 +124,7 @@ function About() {
             alt="about image"
             width={900}
             height={748}
-            src={'/about.png'}
+            src={AboutImage}
           />
         </div>
       </section>
