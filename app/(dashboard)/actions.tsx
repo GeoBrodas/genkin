@@ -15,6 +15,7 @@ import BotMessage from '@/components/ai/BotMessage';
 import InputTransaction from '@/components/ai/InputTransaction';
 import ListofTransactions from '@/components/ai/ListofTransactions';
 import UserMessage from '@/components/ai/UserMessage';
+import { categorySchema } from '@/schemas/form';
 
 // google api key
 const google = createGoogleGenerativeAI({
@@ -93,15 +94,12 @@ export async function submitUserMessage(input: string) {
                   transactionDescription: z
                     .string()
                     .describe('A short description of the the transaction'),
-                  category: z.enum([
-                    'Investment',
-                    'Food',
-                    'Cloth',
-                    'Groceries & Supplies',
-                    'Charity',
-                    'Other',
-                  ]),
-                  amount: z.number(),
+                  category: categorySchema,
+                  amount: z
+                    .number()
+                    .describe(
+                      'Amount invlolved in the transaction. Assign positive/negative sign depending on type of transactions, if inflow/outlfow'
+                    ),
                 })
               ),
             }),
@@ -142,7 +140,9 @@ export async function submitUserMessage(input: string) {
 
             console.log('entries', entries);
 
-            uiStream.update(<InputTransaction state="idle" />);
+            uiStream.update(
+              <InputTransaction transactions={entries} state="idle" />
+            );
 
             aiState.done({
               ...aiState.get(),
