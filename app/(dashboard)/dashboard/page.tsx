@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { SendHorizontal } from 'lucide-react';
 import UserMessage from '@/components/ai/UserMessage';
 import { nanoid } from '@/lib/helpers';
+import { useScrollAnchor } from '@/hooks/use-scroll';
 
 export default function DashboardPage() {
   const [input, setInput] = useState<string>('');
@@ -127,16 +128,21 @@ function IdleDisplayChat({
 }
 
 function ActiveChat({ conversation, handleSubmit, input, setInput }) {
-  const bottomRef = useRef<HTMLDivElement>(null);
+  // const { messagesRef, scrollRef, visibilityRef } = useScrollAnchor();
+
+  const visibilityRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
-    if (bottomRef) {
-      bottomRef.current?.scrollIntoView();
+    if (visibilityRef) {
+      visibilityRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
     }
   }, [conversation]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between pt-16">
+    <main className="flex min-h-screen flex-col items-center justify-between pt-16 overflow-auto">
       <div className="flex flex-col w-full max-w-2xl pt-10 mx-auto stretch">
         <div className="space-y-6">
           {conversation.map((message: any, i: number) => (
@@ -147,8 +153,7 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
             </div>
           ))}
 
-          <div className="pt-[7rem]" />
-          <div ref={bottomRef} />
+          <div className="h-px w-full pt-[5rem]" ref={visibilityRef} />
         </div>
 
         <ChatInput
