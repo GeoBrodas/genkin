@@ -75,25 +75,22 @@ function CreateTransaction({
               {...register(`transactions.${index}.description`)}
             />
             <FormField
+              defaultValue={transaction.category}
               control={control}
               name={`transactions.${index}.category`}
               render={({ field }) => (
                 <Select
                   key={field.value}
                   value={field.value}
-                  defaultValue={data[index].category
+                  defaultValue={transaction.category
                     .split(' ')
                     .map((word: string) => word.toLowerCase())
                     .join('-')}
                   onValueChange={field.onChange}
-                  //   defaultValue={data[index].category
-                  //     .split(' ')
-                  //     .map((word: string) => word.toLowerCase())
-                  //     .join('-')}
                 >
                   <SelectTrigger className="w-[300px]">
                     <SelectValue
-                      defaultValue={data[index].category
+                      defaultValue={transaction.category
                         .split(' ')
                         .map((word: string) => word.toLowerCase())
                         .join('-')}
@@ -103,13 +100,7 @@ function CreateTransaction({
                   <SelectContent>
                     {categorySchema.options.map(
                       (category: string, index: number) => (
-                        <SelectItem
-                          key={index}
-                          value={category
-                            .split(' ')
-                            .map((word) => word.toLowerCase())
-                            .join('-')}
-                        >
+                        <SelectItem key={index} value={category}>
                           {category}
                         </SelectItem>
                       )
