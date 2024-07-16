@@ -2,7 +2,7 @@
 
 import { useActions, useUIState } from 'ai/rsc';
 import { AI } from '../actions';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SendHorizontal } from 'lucide-react';
 import UserMessage from '@/components/ai/UserMessage';
 import { nanoid } from '@/lib/helpers';
@@ -59,7 +59,7 @@ export default function DashboardPage() {
 
   return idle ? (
     <IdleDisplayChat
-      exampleHandler={exampleHandlerPrompt}
+      exampleHandlerPrompt={exampleHandlerPrompt}
       handleSubmit={handleSubmit}
       input={input}
       setInput={setInput}
@@ -127,6 +127,14 @@ function IdleDisplayChat({
 }
 
 function ActiveChat({ conversation, handleSubmit, input, setInput }) {
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (bottomRef) {
+      bottomRef.current?.scrollIntoView();
+    }
+  }, [conversation]);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between pt-16">
       <div className="flex flex-col w-full max-w-2xl pt-10 mx-auto stretch">
@@ -138,6 +146,9 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
               {message.attachments}
             </div>
           ))}
+
+          <div className="pt-[7rem]" />
+          <div ref={bottomRef} />
         </div>
 
         <ChatInput
