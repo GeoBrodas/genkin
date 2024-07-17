@@ -4,6 +4,10 @@ import AboutImage from '../public/about.png';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, MessageCircle, PieChart, Sparkle } from 'lucide-react';
+import { signInWithGitHub } from './auth/action';
+import { createClient } from '@/utils/supabase/server';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -50,7 +54,14 @@ function Hero() {
   );
 }
 
-function NavBar() {
+async function NavBar() {
+  const supabase = createClient();
+
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
   return (
     <header className="px-4 lg:px-6 xl:px-14 h-14 flex justify-between items-center py-12">
       <h3 className="text-2xl">
@@ -58,10 +69,18 @@ function NavBar() {
         <span className="animate-ping">_</span>
       </h3>
 
-      <div>
+      <div className="flex items-center">
         <Button variant={'link'}>Privacy Policy</Button>
         <Button variant={'link'}>Behind the scenes</Button>
-        <Button>Sign In</Button>
+        <form>
+          {!user ? (
+            <Button formAction={signInWithGitHub}>Sign In</Button>
+          ) : (
+            <Link href="/dashboard">
+              <Button>Go to Dashboard</Button>
+            </Link>
+          )}
+        </form>
       </div>
     </header>
   );

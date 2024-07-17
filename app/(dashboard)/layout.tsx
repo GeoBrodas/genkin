@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { signOut } from '../auth/action';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -86,9 +87,13 @@ function AccountMenu() {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="hover:cursor-pointer">
-          Sign Out <LogOut className="ml-3 h-4 w-4" />
-        </DropdownMenuItem>
+        <form>
+          <DropdownMenuItem className="hover:cursor-pointer">
+            <button formAction={signOut} className="flex items-center">
+              Sign Out <LogOut className="ml-3 h-4 w-4" />
+            </button>
+          </DropdownMenuItem>
+        </form>
       </DropdownMenuContent>
     </DropdownMenu>
   );
