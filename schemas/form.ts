@@ -8,6 +8,8 @@ export const categorySchema = z.enum([
   'Groceries & Supplies',
   'Charity',
   'Salary',
+  'Subscription',
+  'Props',
   'Other',
 ]);
 
