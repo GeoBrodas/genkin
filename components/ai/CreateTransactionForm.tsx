@@ -17,10 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import {
-  TransactionFormProvider,
-  //   useFormContextCreateTransaction,
-} from '@/hooks/transaction';
+import { TransactionFormProvider } from '@/hooks/transaction';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { nanoid } from '@/lib/helpers';
 import {
@@ -32,6 +29,7 @@ import { FormControl, FormField, FormItem } from '../ui/form';
 import { z } from 'zod';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Calendar } from '../ui/calendar';
+import { useState } from 'react';
 
 export default function CreateTransactionForm({
   state,
@@ -72,15 +70,33 @@ function CreateTransaction({
     },
   });
 
-  console.log(watch());
+  const [submitting, setIsSubmitting] = useState(false);
+  const [done, setIsDone] = useState(false);
 
   const { append, remove, fields } = useFieldArray({
     name: 'transactions',
     control,
   });
 
-  function onSubmit(values: z.infer<typeof transactionsSchema>) {
-    console.log('onsubmit', values);
+  async function onSubmit(values: z.infer<typeof transactionsSchema>) {
+    if (done) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/save-transaction', {
+        body: JSON.stringify(values),
+        method: 'POST',
+      });
+
+      console.log(response);
+      setIsSubmitting(false);
+      setIsDone(true);
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+      setIsDone(true);
+    }
   }
 
   return (
@@ -125,6 +141,7 @@ function CreateTransaction({
 
               <Input
                 placeholder="Bought three equities"
+                disabled={done}
                 {...register(`transactions.${index}.description`)}
               />
               <FormField
@@ -133,6 +150,7 @@ function CreateTransaction({
                 name={`transactions.${index}.category`}
                 render={({ field }) => (
                   <Select
+                    disabled={done}
                     key={field.value}
                     value={field.value}
                     defaultValue={transaction.category
@@ -164,6 +182,7 @@ function CreateTransaction({
               />
 
               <Input
+                disabled={done}
                 placeholder="$1000"
                 {...register(`transactions.${index}.amount`)}
               />
@@ -183,19 +202,23 @@ function CreateTransaction({
                 date: Date.now().toString(),
               })
             }
+            disabled={done}
           >
             <Plus className="mr-2" />
             Add another
           </Button>
-          <Button variant={state === 'saved' ? 'secondary' : 'default'}>
-            {state === 'saved' && <Check className="mr-2" />}
-            {state === 'idle' && <ArrowDownToLine className="mr-2" />}
-            {state === 'idle' ? (
+          <Button
+            disabled={done}
+            variant={state === 'saved' ? 'secondary' : 'default'}
+          >
+            {done && <Check className="mr-2" />}
+            {!done && !submitting && <ArrowDownToLine className="mr-2" />}
+            {!done && !submitting ? (
               'Save entry'
-            ) : state === 'loading' ? (
+            ) : submitting ? (
               <LoaderCircle className="animate-spin" />
             ) : (
-              'Saved!'
+              done && 'Saved!'
             )}
           </Button>
         </CardFooter>

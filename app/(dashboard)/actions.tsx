@@ -15,7 +15,8 @@ import BotMessage from '@/components/ai/BotMessage';
 import InputTransaction from '@/components/ai/InputTransaction';
 import ListofTransactions from '@/components/ai/ListofTransactions';
 import UserMessage from '@/components/ai/UserMessage';
-import { categorySchema } from '@/schemas/form';
+import { categorySchema, formCreateTransaction } from '@/schemas/form';
+import { createClient } from '@/utils/supabase/server';
 
 // google api key
 const google = createGoogleGenerativeAI({
@@ -168,7 +169,24 @@ export async function submitUserMessage(input: string) {
             console.log('from date', fromDate);
             console.log('end date', endDate);
 
-            uiStream.update(<ListofTransactions />);
+            uiStream.update(<ListofTransactions isLoading />);
+
+            const from = new Date(fromDate);
+            const to = new Date(endDate);
+
+            const supabase = createClient();
+            const user = await supabase.auth.getUser();
+            const data = await supabase
+              .from('main')
+              .select('id, description, amount, date, category')
+              .eq('user_id', user.data.user?.id)
+              .gte('date', from.toISOString())
+              .lte('date', to.toISOString())
+              .order('date', { ascending: true });
+
+            console.log('Fetched transactions', data);
+
+            uiStream.update(<ListofTransactions data={data.data} />);
 
             aiState.done({
               ...aiState.get(),

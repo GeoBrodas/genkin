@@ -4,12 +4,12 @@ import { z } from 'zod';
 export const categorySchema = z.enum([
   'Investment',
   'Food',
-  'Cloth',
+  'Cloth & Props',
   'Groceries & Supplies',
   'Charity',
   'Salary',
   'Subscription',
-  'Props',
+  'Fuel',
   'Other',
 ]);
 

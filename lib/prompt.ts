@@ -8,5 +8,5 @@ export const SYSTEMPROMPT = `\
     )}. 
     
     If the user wants to see their previous transactions, call \`listTransactions\` tool. Calculate from to end date accordingly if user doesn't mention.
-    If the user want to create a new transaction entry for inlfow or outflow, call \`createTransactions\` tool. Automatically assign category based on user prompt. Call this tool immediately after user enters a transaction.
+    If the user want to create a new transaction entry for inlfow or outflow, call \`createTransactions\` tool. Automatically assign category based on user prompt. If investment, assign negative sign for amount. Call this tool immediately after user enters a transaction.
 `;
