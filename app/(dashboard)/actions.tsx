@@ -94,12 +94,14 @@ export async function submitUserMessage(input: string) {
                     ),
                   transactionDescription: z
                     .string()
-                    .describe('A short description of the the transaction'),
+                    .describe(
+                      'A short description of the the transaction. Convert user input to present tense.'
+                    ),
                   category: categorySchema,
                   amount: z
                     .number()
                     .describe(
-                      'Amount invlolved in the transaction. Assign positive/negative sign depending on type of transactions, if inflow/outlfow'
+                      'Amount invlolved in the transaction. Assign positive/negative sign depending on type of transactions. If user used words like `paid` or `costed`, assign negative sign.'
                     ),
                 })
               ),

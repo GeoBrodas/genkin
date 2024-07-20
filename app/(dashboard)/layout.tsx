@@ -18,6 +18,8 @@ import {
 import { LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { signOut } from '../auth/action';
+import { Toaster } from '@/components/ui/toaster';
+import AccountMenu from '@/components/dashboard/AccountMenu';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -43,6 +45,7 @@ export default function RootLayout({
         >
           {children}
         </AI>
+        <Toaster />
       </body>
     </html>
   );
@@ -50,7 +53,7 @@ export default function RootLayout({
 
 function NavBar() {
   return (
-    <header className="px-4 lg:px-6 xl:px-14 h-14 flex justify-between items-center py-12">
+    <header className="max-w-7xl mx-auto h-14 flex justify-between items-center py-12">
       <Link href="/">
         <h3 className="text-2xl">
           <span className="">genkin</span>.ai
@@ -61,40 +64,8 @@ function NavBar() {
       <div className="flex items-center space-x-2">
         <Button variant={'link'}>Privacy Policy</Button>
 
-        <AccountMenu />
+        <AccountMenu signOut={signOut} />
       </div>
     </header>
-  );
-}
-
-function AccountMenu() {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="focus:outline-none hover:cursor-pointer">
-        <Avatar>
-          <AvatarImage src="" />
-          <AvatarFallback>GV</AvatarFallback>
-        </Avatar>
-      </DropdownMenuTrigger>
-
-      <DropdownMenuContent align={'end'}>
-        <DropdownMenuItem className="hover:cursor-pointer">
-          Transaction history
-        </DropdownMenuItem>
-        <DropdownMenuItem className="hover:cursor-pointer">
-          Visit GitHub
-        </DropdownMenuItem>
-
-        <DropdownMenuSeparator />
-
-        <form>
-          <DropdownMenuItem className="hover:cursor-pointer">
-            <button formAction={signOut} className="flex items-center">
-              Sign Out <LogOut className="ml-3 h-4 w-4" />
-            </button>
-          </DropdownMenuItem>
-        </form>
-      </DropdownMenuContent>
-    </DropdownMenu>
   );
 }

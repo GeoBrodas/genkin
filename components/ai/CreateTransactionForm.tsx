@@ -30,6 +30,7 @@ import { z } from 'zod';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Calendar } from '../ui/calendar';
 import { useState } from 'react';
+import { useToast } from '../ui/use-toast';
 
 export default function CreateTransactionForm({
   state,
@@ -70,6 +71,8 @@ function CreateTransaction({
     },
   });
 
+  const { toast } = useToast();
+
   const [submitting, setIsSubmitting] = useState(false);
   const [done, setIsDone] = useState(false);
 
@@ -92,6 +95,11 @@ function CreateTransaction({
       console.log(response);
       setIsSubmitting(false);
       setIsDone(true);
+      toast({
+        title: 'Saved transaction',
+        description:
+          'Ask Genkin to list your latest transactions or visit transactions analysis page',
+      });
     } catch (error) {
       console.log(error);
       setIsSubmitting(false);

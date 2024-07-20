@@ -10,3 +10,18 @@ export const runAsyncFnWithoutBlocking = (
 ) => {
   fn();
 };
+
+export const currency = {
+  Rupee: {
+    symbol: '\u20B9',
+  },
+  Dollar: {
+    symbol: '\u0024',
+  },
+  Euro: {
+    symbol: '	\u20A0',
+  },
+  Cent: {
+    symbol: '	\u00A2',
+  },
+};

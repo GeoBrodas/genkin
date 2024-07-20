@@ -1,12 +1,11 @@
 'use client';
 
-import { useActions, useUIState } from 'ai/rsc';
 import { AI } from '../actions';
-import { useEffect, useRef, useState } from 'react';
-import { SendHorizontal } from 'lucide-react';
-import UserMessage from '@/components/ai/UserMessage';
 import { nanoid } from '@/lib/helpers';
-import { useScrollAnchor } from '@/hooks/use-scroll';
+import { SendHorizontal } from 'lucide-react';
+import { useActions, useUIState } from 'ai/rsc';
+import { useEffect, useRef, useState } from 'react';
+import UserMessage from '@/components/ai/UserMessage';
 
 export default function DashboardPage() {
   const [input, setInput] = useState<string>('');
@@ -153,7 +152,7 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
             </div>
           ))}
 
-          <div className="h-px w-full pt-[5rem]" ref={visibilityRef} />
+          <div className="h-px w-full pt-[6rem]" ref={visibilityRef} />
         </div>
 
         <ChatInput
