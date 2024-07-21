@@ -1,5 +1,6 @@
 import { DatePickerWithRange } from '@/components/analysis/DatePicket';
 import Navigation from '@/components/analysis/Navigation';
+import TransactionsHistory from '@/components/history/TransactionsHistory';
 import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
@@ -21,14 +22,12 @@ export default function HistoryPage() {
 
           <div className="flex items-center space-x-2">
             <DatePickerWithRange />
-            <Button size={'icon'}>
-              <RefreshCw className="w-5 h-5" />
-            </Button>
           </div>
         </div>
       </div>
 
       {/* transactions history */}
+      <TransactionsHistory />
     </main>
   );
 }

@@ -114,6 +114,8 @@ function CreateTransaction({
     }
   }
 
+  console.log(watch());
+
   return (
     <Card>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -205,25 +207,10 @@ function CreateTransaction({
           ))}
         </CardContent>
 
-        <CardFooter className="flex justify-between items-center space-x-2">
-          <Button
-            variant={'outline'}
-            onClick={() =>
-              append({
-                amount: 0,
-                id: nanoid(),
-                description: '',
-                category: 'Other',
-                date: Date.now().toString(),
-              })
-            }
-            disabled={done}
-          >
-            <Plus className="mr-2" />
-            Add another
-          </Button>
+        <CardFooter className="flex justify-end items-center space-x-2">
           <Button
             disabled={done}
+            type="submit"
             variant={state === 'saved' ? 'secondary' : 'default'}
           >
             {done && <Check className="mr-2" />}
@@ -238,6 +225,23 @@ function CreateTransaction({
           </Button>
         </CardFooter>
       </form>
+      <Button
+        className="absolute left-7 bottom-7 z-10"
+        variant={'outline'}
+        onClick={() =>
+          append({
+            amount: 0,
+            id: nanoid(),
+            description: '',
+            category: 'Other',
+            date: new Date().toISOString(),
+          })
+        }
+        disabled={done}
+      >
+        <Plus className="mr-2" />
+        Add another
+      </Button>
     </Card>
   );
 }

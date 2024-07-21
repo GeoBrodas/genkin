@@ -22,6 +22,7 @@
     "@radix-ui/react-toast": "^1.2.1",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.4",
+    "@tanstack/react-table": "^8.19.3",
     "ai": "^3.2.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
