@@ -26,6 +26,15 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: 'amount',
-    header: 'Amount',
+    header: () => <div className="text-left">Amount</div>,
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue('amount'));
+      const formatted = new Intl.NumberFormat('en-In', {
+        style: 'currency',
+        currency: 'INR',
+      }).format(amount);
+
+      return <div className="text-left font-medium">{formatted}</div>;
+    },
   },
 ];
