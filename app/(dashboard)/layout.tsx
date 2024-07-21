@@ -7,15 +7,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { AI } from './actions';
 
-// account menu bar imports
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { LogOut } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+
 import Link from 'next/link';
 import { signOut } from '../auth/action';
 import { Toaster } from '@/components/ui/toaster';
@@ -36,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NavBar />
+
         <AI
           initialAIState={{
             //@ts-ignore
@@ -53,19 +47,23 @@ export default function RootLayout({
 
 function NavBar() {
   return (
-    <header className="max-w-7xl mx-auto h-14 flex justify-between items-center py-12">
-      <Link href="/">
-        <h3 className="text-2xl">
-          <span className="">genkin</span>.ai
-          <span className="animate-ping">_</span>
-        </h3>
-      </Link>
+    <div className="fixed top-0 z-10 backdrop-blur-xl w-full">
+      <header className="max-w-7xl mx-auto h-14 flex justify-between items-center py-10">
+        <Link href="/">
+          <h3 className="text-2xl">
+            <span className="">genkin</span>.ai
+            <span className="animate-ping">_</span>
+          </h3>
+        </Link>
 
-      <div className="flex items-center space-x-2">
-        <Button variant={'link'}>Privacy Policy</Button>
+        <div className="flex items-center space-x-2">
+          <Button variant={'link'}>Privacy Policy</Button>
 
-        <AccountMenu signOut={signOut} />
-      </div>
-    </header>
+          <AccountMenu signOut={signOut} />
+        </div>
+      </header>
+
+      <Separator />
+    </div>
   );
 }

@@ -13,16 +13,16 @@ export const categorySchema = z.enum([
   'Other',
 ]);
 
+export const TransactionSchema = z.object({
+  id: z.string(),
+  date: z.string(),
+  description: z.string(),
+  category: categorySchema,
+  amount: z.number(),
+});
+
 export const transactionsSchema = z.object({
-  transactions: z.array(
-    z.object({
-      id: z.string(),
-      date: z.string(),
-      description: z.string(),
-      category: categorySchema,
-      amount: z.number(),
-    })
-  ),
+  transactions: z.array(TransactionSchema),
 });
 
 export type formCreateTransaction = z.infer<typeof transactionsSchema>;

@@ -104,6 +104,13 @@ function CreateTransaction({
       console.log(error);
       setIsSubmitting(false);
       setIsDone(true);
+
+      toast({
+        title: 'Something went wrong!',
+        variant: 'destructive',
+        description:
+          'Try again later. If this problem persists, report an issue on GitHub',
+      });
     }
   }
 

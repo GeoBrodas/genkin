@@ -27,7 +27,9 @@ async function ListofTransactions({ data, isLoading }: Props) {
   let totalAmount = 0;
 
   data?.map((item) => {
-    totalAmount += item.amount;
+    if (item.amount < 0) {
+      totalAmount += item.amount;
+    } else return;
   });
 
   return (
@@ -37,7 +39,7 @@ async function ListofTransactions({ data, isLoading }: Props) {
           <Table className="">
             <TableCaption className="sticky bottom-0 bg-white pt-3">
               Fetched you {data?.length} transactions, a total spending of $
-              {Math.abs(totalAmount)}
+              {Math.floor(Math.abs(totalAmount))}
             </TableCaption>
             <TableHeader className="sticky top-0 bg-white">
               <TableRow>

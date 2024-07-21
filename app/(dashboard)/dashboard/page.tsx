@@ -81,8 +81,8 @@ function IdleDisplayChat({
   exampleHandlerPrompt,
 }) {
   return (
-    <main className="flex flex-col items-center pt-16">
-      <div className="flex flex-col h-[34rem] justify-between w-full max-w-2xl pt-10 mx-auto stretch">
+    <main className="flex flex-col items-center pt-20">
+      <div className="flex flex-col h-[40rem] justify-between w-full max-w-2xl pt-10 mx-auto stretch">
         <div className="w-full">
           <h3 className="text-4xl font-semibold">Genkin AI Chat system</h3>
 

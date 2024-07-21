@@ -6,7 +6,7 @@ interface Props {
   amount: number;
 }
 
-function CashFlowCard({ type }: Props) {
+function CashFlowCard({ type, amount }: Props) {
   return (
     <Card x-chunk="dashboard-01-chunk-0">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -22,8 +22,15 @@ function CashFlowCard({ type }: Props) {
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">
-          {type === 'inflow' ? '+ ' : type === 'outflow' ? '- ' : ''}
-          {`\u20B9`}45,231.89
+          {type === 'inflow'
+            ? '+ '
+            : type === 'outflow'
+            ? '- '
+            : amount < 0
+            ? '- '
+            : '+ '}
+          {`\u20B9`}
+          {Math.abs(amount)}
         </div>
         <p className="text-xs text-muted-foreground">
           Money earnt from salary was highest

@@ -18,3 +18,5 @@ export type Message = {
     props: Record<string, any>;
   };
 };
+
+export type ChartData = { day: string; totalOutflow: number }[];

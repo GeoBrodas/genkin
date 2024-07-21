@@ -17,30 +17,33 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-
-const chartData = [
-  { day: 'Monday', totalOutflow: 186 },
-  { day: 'Tuesday', totalOutflow: 305 },
-  { day: 'Wednesday', totalOutflow: 237 },
-  { day: 'Thursday', totalOutflow: 73 },
-  { day: 'Friday', totalOutflow: 209 },
-  { day: 'Saturday', totalOutflow: 214 },
-  { day: 'Sunday', totalOutflow: 0 },
-];
+import { getCurrentWeekDates } from '@/lib/helpers';
+import { format } from 'date-fns';
+import { ChartData } from '@/lib/types';
 
 const chartConfig = {
   totalOutflow: {
-    label: 'Total Outflow',
+    label: 'Outflow',
     color: 'hsl(0, 42%, 45%)',
   },
 } satisfies ChartConfig;
 
-export default function WeeklyAnalysis() {
+export default function WeeklyAnalysis({
+  chartData,
+}: {
+  chartData: ChartData;
+}) {
+  const { startOfWeek, endOfWeek } = getCurrentWeekDates();
+  const start = format(startOfWeek, 'LLL dd, y');
+  const end = format(endOfWeek, 'LLL dd, y');
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Weekly spendings</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>
+          {start} - {end}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -60,7 +63,7 @@ export default function WeeklyAnalysis() {
             <Bar
               dataKey="totalOutflow"
               fill="var(--color-totalOutflow)"
-              radius={8}
+              radius={5}
             />
           </BarChart>
         </ChartContainer>
