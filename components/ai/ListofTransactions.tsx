@@ -10,13 +10,14 @@ import {
 import BotWrapper from './BotWrapper';
 import { ScrollArea } from '../ui/scroll-area';
 import { Skeleton } from '../ui/skeleton';
+import { format } from 'date-fns';
 
 interface Props {
   data?: {
     id: number;
     description: string;
     amount: number;
-    date: Date;
+    date: string;
     category: string;
   }[];
 
@@ -53,7 +54,9 @@ async function ListofTransactions({ data, isLoading }: Props) {
             <TableBody className="">
               {data.map((item, i) => (
                 <TableRow key={i} className="w-full">
-                  <TableCell className="font-medium">{item.date}</TableCell>
+                  <TableCell className="font-medium">
+                    {format(item.date, 'LLL dd, y')}
+                  </TableCell>
                   <TableCell>{item.description}</TableCell>
                   <TableCell>{item.category}</TableCell>
                   <TableCell className="text-right">{item.amount}</TableCell>
