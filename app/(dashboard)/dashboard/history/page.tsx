@@ -2,10 +2,38 @@ import { DatePickerWithRange } from '@/components/analysis/DatePicket';
 import Navigation from '@/components/analysis/Navigation';
 import TransactionsHistory from '@/components/history/TransactionsHistory';
 import { Button } from '@/components/ui/button';
+import { getFirstAndLastDayOfMonth } from '@/lib/helpers';
+import { createClient } from '@/utils/supabase/server';
 import { ArrowLeftIcon, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 
-export default function HistoryPage() {
+async function getInitialData(from?: string, to?: string) {
+  'use server';
+
+  const { firstDay, lastDay } = getFirstAndLastDayOfMonth('server');
+
+  const supabase = createClient();
+  const user = await supabase.auth.getUser();
+  const res = await supabase
+    .from('main')
+    .select('id, description, amount, date, category')
+    .eq('user_id', user.data.user?.id)
+    .gte('date', from || firstDay)
+    .lte('date', to || lastDay)
+    .order('date', { ascending: true });
+
+  return res.data;
+}
+
+export default async function HistoryPage({
+  searchParams,
+}: {
+  searchParams: {
+    [key: string]: string;
+  };
+}) {
+  const data = await getInitialData(searchParams.from, searchParams.to);
+
   return (
     <main className="mt-[7rem]">
       <div className="max-w-7xl mx-auto">
@@ -27,7 +55,7 @@ export default function HistoryPage() {
       </div>
 
       {/* transactions history */}
-      <TransactionsHistory />
+      <TransactionsHistory data={data} />
     </main>
   );
 }
