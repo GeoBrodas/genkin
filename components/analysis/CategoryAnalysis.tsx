@@ -18,44 +18,33 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
+import { categorySchema } from '@/schemas/form';
 
-const chartData = [
-  { category: 'chrome', outflows: 275, fill: 'var(--color-chrome)' },
-  { category: 'safari', outflows: 200, fill: 'var(--color-safari)' },
-  { category: 'firefox', outflows: 287, fill: 'var(--color-firefox)' },
-  { category: 'edge', outflows: 173, fill: 'var(--color-edge)' },
-  { category: 'other', outflows: 190, fill: 'var(--color-other)' },
-];
+const pieData = categorySchema.options
+  .map((category, index) => {
+    return {
+      [category]: {
+        label: category,
+        color: `hsl(var(--chart-${index + 1}))`,
+      },
+    };
+  })
+  .reduce((acc, obj) => {
+    const [key, value] = Object.entries(obj)[0];
+    acc[key.toLowerCase().split(' ')[0]] = value;
+    return acc;
+  }, {});
 
 const chartConfig = {
-  outflows: {
-    label: 'Outflows',
+  totalValue: {
+    label: 'outflows',
   },
-  chrome: {
-    label: 'Chrome',
-    color: 'hsl(var(--chart-1))',
-  },
-  safari: {
-    label: 'Safari',
-    color: 'hsl(var(--chart-2))',
-  },
-  firefox: {
-    label: 'Firefox',
-    color: 'hsl(var(--chart-3))',
-  },
-  edge: {
-    label: 'Edge',
-    color: 'hsl(var(--chart-4))',
-  },
-  other: {
-    label: 'Other',
-    color: 'hsl(var(--chart-5))',
-  },
+  ...pieData,
 } satisfies ChartConfig;
 
-export function CategoryAnalysis() {
+export function CategoryAnalysis({ chartData }) {
   const totalOutflows = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.outflows, 0);
+    return chartData.reduce((acc, curr) => acc + curr.totalValue, 0);
   }, []);
 
   return (
@@ -76,7 +65,7 @@ export function CategoryAnalysis() {
             />
             <Pie
               data={chartData}
-              dataKey="outflows"
+              dataKey="totalValue"
               nameKey="category"
               innerRadius={60}
               strokeWidth={5}
@@ -96,7 +85,7 @@ export function CategoryAnalysis() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalOutflows.toLocaleString()}
+                          {Math.floor(totalOutflows).toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

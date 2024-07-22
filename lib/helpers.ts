@@ -1,4 +1,8 @@
-import { TransactionSchema } from '@/schemas/form';
+import {
+  categorySchema,
+  TransactionSchema,
+  transactionsSchema,
+} from '@/schemas/form';
 import { customAlphabet } from 'nanoid';
 import { z } from 'zod';
 import { ChartData } from './types';
@@ -35,7 +39,7 @@ export function getFirstAndLastDayOfMonth(env: 'local' | 'server') {
 export function getCurrentWeekDates() {
   let today = new Date();
   let currentDay = today.getDay();
-  let diff = today.getDate() - currentDay + (currentDay === 0 ? -6 : 1);
+  let diff = today.getDate() - currentDay;
 
   let startOfWeek = new Date(today.setDate(diff)).toISOString();
   let endOfWeek = new Date(today.setDate(diff + 6)).toISOString();
@@ -83,6 +87,7 @@ export function calculateMoneySpentByDay(
 ) {
   if (dataset.length === 0) {
     return [
+      { day: 'Sunday', amount: 0 },
       { day: 'Monday', amount: 0 },
       { day: 'Tuesday', amount: 0 },
       { day: 'Wednesday', amount: 0 },
@@ -127,6 +132,26 @@ export function calculateMoneySpentByDay(
   });
 
   return result;
+}
+
+export function getCategorisedData(data: z.infer<typeof TransactionSchema>[]) {
+  let rawData = categorySchema.options.map((category: string) => ({
+    category: category.toLowerCase().split(' ')[0],
+    totalValue: 0,
+    fill: `var(--color-${category.toLocaleLowerCase().split(' ')[0]})`,
+  }));
+
+  rawData.forEach((value) => {
+    data.map((item) => {
+      if (item.category === 'Salary') return;
+
+      if (value.category === item.category.toLowerCase().split(' ')[0]) {
+        value.totalValue += Math.abs(item.amount);
+      } else return;
+    });
+  });
+
+  return rawData;
 }
 
 export const currency = {

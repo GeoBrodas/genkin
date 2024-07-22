@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { CategoryAnalysis } from '@/components/analysis/CategoryAnalysis';
 import { DatePickerWithRange } from '@/components/analysis/DatePicket';
 import WeeklyAnalysis from '@/components/analysis/WeeklyAnalysis';
@@ -9,13 +11,12 @@ import Navigation from '@/components/analysis/Navigation';
 import { createClient } from '@/utils/supabase/server';
 import {
   calculateMoneySpentByDay,
-  daysOfWeek,
+  getCategorisedData,
   getCurrentWeekDates,
   getFirstAndLastDayOfMonth,
   getInflowsAmount,
   getOutflowsAmount,
 } from '@/lib/helpers';
-import { ChartData } from '@/lib/types';
 
 async function getInitialData(from?: string, to?: string) {
   'use server';
@@ -62,6 +63,8 @@ export default async function AnalysisPage({
   let totalInflows = getInflowsAmount(data);
   let totalOutflows = getOutflowsAmount(data);
 
+  const categorisedData = getCategorisedData(data);
+
   const weeklyData = await getWeeklyData();
   const weeklyChartData = calculateMoneySpentByDay(weeklyData);
 
@@ -86,7 +89,7 @@ export default async function AnalysisPage({
 
         <div className="grid grid-cols-3 gap-6 mt-16">
           <WeeklyAnalysis chartData={weeklyChartData} />
-          <CategoryAnalysis />
+          <CategoryAnalysis chartData={categorisedData} />
 
           <div className="grid grid-rows-3 gap-6">
             <CashFlowCard amount={totalInflows} type="inflow" />
