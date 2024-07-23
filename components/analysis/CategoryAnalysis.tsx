@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { TrendingUp } from 'lucide-react';
+import { Ban, TrendingUp } from 'lucide-react';
 import { Label, Pie, PieChart } from 'recharts';
 
 import {
@@ -19,6 +19,9 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { categorySchema } from '@/schemas/form';
+import { getFirstAndLastDayOfMonth } from '@/lib/helpers';
+import { format } from 'date-fns';
+import { useSearchParams } from 'next/navigation';
 
 const pieData = categorySchema.options
   .map((category, index) => {
@@ -42,16 +45,29 @@ const chartConfig = {
   ...pieData,
 } satisfies ChartConfig;
 
-export function CategoryAnalysis({ chartData }) {
+export function CategoryAnalysis({ chartData, noData }) {
   const totalOutflows = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.totalValue, 0);
   }, []);
 
+  const { firstDay, lastDay } = getFirstAndLastDayOfMonth('local');
+  const searchParams = useSearchParams();
+
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col relative">
+      {noData && (
+        <div className="absolute flex items-center rounded-sm justify-center z-10 backdrop-blur-sm top-0 w-full h-full">
+          <span className="text-gray-400 flex items-center space-x-2">
+            <Ban /> <span>No data available</span>
+          </span>
+        </div>
+      )}
       <CardHeader className="items-center pb-0">
         <CardTitle>Analysis by Category</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>
+          {format(searchParams.get('from') || firstDay, 'LLL dd')} -{' '}
+          {format(searchParams.get('to') || lastDay, 'LLL dd y')}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer

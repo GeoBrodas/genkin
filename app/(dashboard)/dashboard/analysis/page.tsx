@@ -89,7 +89,13 @@ export default async function AnalysisPage({
 
         <div className="grid grid-cols-3 gap-6 mt-16">
           <WeeklyAnalysis chartData={weeklyChartData} />
-          <CategoryAnalysis chartData={categorisedData} />
+          <CategoryAnalysis
+            noData={
+              data.length === 0 ||
+              categorisedData.every((category) => category.totalValue === 0)
+            }
+            chartData={categorisedData}
+          />
 
           <div className="grid grid-rows-3 gap-6">
             <CashFlowCard amount={totalInflows} type="inflow" />
