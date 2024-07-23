@@ -90,6 +90,9 @@ export default async function AnalysisPage({
         <div className="grid grid-cols-3 gap-6 mt-16">
           <WeeklyAnalysis chartData={weeklyChartData} />
           <CategoryAnalysis
+            totalTransactions={
+              data?.filter((trans) => trans.category !== 'Investment').length
+            }
             noData={
               data.length === 0 ||
               categorisedData.every((category) => category.totalValue === 0)

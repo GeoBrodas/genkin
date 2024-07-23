@@ -22,6 +22,7 @@ import { categorySchema } from '@/schemas/form';
 import { getFirstAndLastDayOfMonth } from '@/lib/helpers';
 import { format } from 'date-fns';
 import { useSearchParams } from 'next/navigation';
+import BlurPlaceholder from '../BlurPlaceholder';
 
 const pieData = categorySchema.options
   .map((category, index) => {
@@ -45,23 +46,14 @@ const chartConfig = {
   ...pieData,
 } satisfies ChartConfig;
 
-export function CategoryAnalysis({ chartData, noData }) {
-  const totalOutflows = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.totalValue, 0);
-  }, []);
-
+export function CategoryAnalysis({ chartData, noData, totalTransactions }) {
   const { firstDay, lastDay } = getFirstAndLastDayOfMonth('local');
   const searchParams = useSearchParams();
 
   return (
     <Card className="flex flex-col relative">
-      {noData && (
-        <div className="absolute flex items-center rounded-sm justify-center z-10 backdrop-blur-sm top-0 w-full h-full">
-          <span className="text-gray-400 flex items-center space-x-2">
-            <Ban /> <span>No data available</span>
-          </span>
-        </div>
-      )}
+      {noData && <BlurPlaceholder />}
+
       <CardHeader className="items-center pb-0">
         <CardTitle>Analysis by Category</CardTitle>
         <CardDescription>
@@ -101,7 +93,7 @@ export function CategoryAnalysis({ chartData, noData }) {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {Math.floor(totalOutflows).toLocaleString()}
+                          {totalTransactions}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
