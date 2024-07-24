@@ -7,7 +7,7 @@ export async function POST(request: Request) {
 
   console.log('data recieved in api', res);
 
-  const data = res.transactions.map((item) => ({
+  const data = res.map((item) => ({
     description: item.description,
     category: item.category,
     date: item.date,

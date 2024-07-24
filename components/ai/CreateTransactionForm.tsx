@@ -31,6 +31,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Calendar } from '../ui/calendar';
 import { useState } from 'react';
 import { useToast } from '../ui/use-toast';
+import { Item } from '@radix-ui/react-select';
 
 export default function CreateTransactionForm({
   state,
@@ -86,9 +87,19 @@ function CreateTransaction({
 
     setIsSubmitting(true);
 
+    const parseData = values.transactions.map((trans) => ({
+      id: trans.id,
+      category: trans.category,
+      date: new Date(trans.date).toLocaleString(),
+      amount: trans.amount,
+      description: trans.description,
+    }));
+
+    console.log(parseData);
+
     try {
       const response = await fetch('/api/save-transaction', {
-        body: JSON.stringify(values),
+        body: JSON.stringify(parseData),
         method: 'POST',
       });
 

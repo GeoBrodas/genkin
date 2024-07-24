@@ -91,7 +91,7 @@ export default async function AnalysisPage({
           <WeeklyAnalysis chartData={weeklyChartData} />
           <CategoryAnalysis
             totalTransactions={
-              data?.filter((trans) => trans.category !== 'Investment').length
+              data?.filter((trans) => trans.category !== 'Salary').length
             }
             noData={
               data.length === 0 ||
