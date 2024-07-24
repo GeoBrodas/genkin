@@ -108,9 +108,16 @@ function IdleDisplayChat({
               <h5 className="font-semibold">List all trasactions</h5>
               <p>from the past 20 days</p>
             </div>
-            <div className="bg-rose-50 hover:bg-rose-100 transition duration-100 ease-in-out rounded-lg p-4 hover:cursor-pointer">
-              <h5 className="font-semibold">How much did I spend</h5>
-              <p>on fuel this month?</p>
+            <div
+              onClick={() =>
+                exampleHandlerPrompt(`Bought some groceries & supplies for $20`)
+              }
+              className="bg-rose-50 hover:bg-rose-100 transition duration-100 ease-in-out rounded-lg p-4 hover:cursor-pointer"
+            >
+              <h5 className="font-semibold">
+                Bought some groceries & supplies
+              </h5>
+              <p>today for $20</p>
             </div>
           </div>
 

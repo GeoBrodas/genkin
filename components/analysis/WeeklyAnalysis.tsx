@@ -37,6 +37,22 @@ export default function WeeklyAnalysis({
   const start = format(startOfWeek, 'LLL dd, y');
   const end = format(endOfWeek, 'LLL dd, y');
 
+  let highest = 0;
+  let highestDay = '';
+
+  function mapHighestDay() {
+    if (chartData.every((data) => data.totalOutflow === 0)) return;
+
+    chartData.map((data) => {
+      if (data.totalOutflow > highest) {
+        highest = data.totalOutflow;
+        highestDay = data.day;
+      }
+    });
+  }
+
+  mapHighestDay();
+
   return (
     <Card>
       <CardHeader>
@@ -70,11 +86,20 @@ export default function WeeklyAnalysis({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Highest outflow seen on Wednesday <TrendingUp className="h-4 w-4" />
+          {chartData.every((data) => data.totalOutflow === 0) ? (
+            'Add more data to get insights'
+          ) : (
+            <span className="flex items-center">
+              Highest outflow seen on {highestDay}
+              <TrendingUp className="h-4 w-4 ml-2" />
+            </span>
+          )}
         </div>
-        <div className="leading-none text-muted-foreground">
-          Spending went upto $400
-        </div>
+        {!chartData.every((data) => data.totalOutflow === 0) && (
+          <div className="leading-none text-muted-foreground">
+            Spending went upto ${highest}
+          </div>
+        )}
       </CardFooter>
     </Card>
   );
