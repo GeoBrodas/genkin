@@ -36,35 +36,42 @@ async function ListofTransactions({ data, isLoading }: Props) {
   return (
     <BotWrapper>
       {!isLoading ? (
-        <ScrollArea className={`${data.length < 5 ? 'h-auto' : 'h-[300px]'}`}>
-          <Table className="">
-            <TableCaption className="sticky bottom-0 bg-white pt-3">
-              Fetched you {data?.length} transactions, a total spending of $
-              {Math.floor(Math.abs(totalAmount))}
-            </TableCaption>
-            <TableHeader className="sticky top-0 bg-white">
-              <TableRow>
-                <TableHead className="">Date</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-
-            <TableBody className="">
-              {data.map((item, i) => (
-                <TableRow key={i} className="w-full">
-                  <TableCell className="font-medium">
-                    {format(item.date, 'LLL dd, y')}
-                  </TableCell>
-                  <TableCell>{item.description}</TableCell>
-                  <TableCell>{item.category}</TableCell>
-                  <TableCell className="text-right">{item.amount}</TableCell>
+        data.length > 0 ? (
+          <ScrollArea className={`${data.length < 5 ? 'h-auto' : 'h-[300px]'}`}>
+            <Table className="">
+              <TableCaption className="sticky bottom-0 bg-white pt-3">
+                Fetched you {data?.length} transactions, a total spending of $
+                {Math.floor(Math.abs(totalAmount))}
+              </TableCaption>
+              <TableHeader className="sticky top-0 bg-white">
+                <TableRow>
+                  <TableHead className="">Date</TableHead>
+                  <TableHead>Description</TableHead>
+                  <TableHead>Category</TableHead>
+                  <TableHead className="text-right">Amount</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ScrollArea>
+              </TableHeader>
+
+              <TableBody className="">
+                {data.map((item, i) => (
+                  <TableRow key={i} className="w-full">
+                    <TableCell className="font-medium">
+                      {format(item.date, 'LLL dd, y')}
+                    </TableCell>
+                    <TableCell>{item.description}</TableCell>
+                    <TableCell>{item.category}</TableCell>
+                    <TableCell className="text-right">{item.amount}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </ScrollArea>
+        ) : (
+          <p>
+            Looks like theres no data for this period. Add some or use a
+            different range
+          </p>
+        )
       ) : (
         <LoadingSkeleton />
       )}
