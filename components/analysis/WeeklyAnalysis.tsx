@@ -54,7 +54,7 @@ export default function WeeklyAnalysis({
   mapHighestDay();
 
   return (
-    <Card>
+    <Card className="">
       <CardHeader>
         <CardTitle>Weekly spendings</CardTitle>
         <CardDescription>

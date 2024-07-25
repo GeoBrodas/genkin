@@ -87,7 +87,7 @@ export default async function AnalysisPage({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 px-4 md:px-0 lg:grid-cols-3 gap-6 mt-16">
+        <div className="grid grid-cols-1 px-4 md:px-0 md:grid-cols-3 gap-6 mt-16 mb-6 md:mb-0">
           <WeeklyAnalysis chartData={weeklyChartData} />
           <CategoryAnalysis
             totalTransactions={
@@ -100,7 +100,7 @@ export default async function AnalysisPage({
             chartData={categorisedData}
           />
 
-          <div className="grid grid-rows-3 gap-6">
+          <div className="grid grid-rows-3 gap-6 order-first sm:order-last">
             <CashFlowCard amount={totalInflows} type="inflow" />
             <CashFlowCard amount={totalOutflows} type="outflow" />
             <CashFlowCard amount={totalInflows - totalOutflows} type="net" />

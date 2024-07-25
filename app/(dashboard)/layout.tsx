@@ -52,7 +52,7 @@ export default function RootLayout({
 function NavBar() {
   return (
     <div className="fixed top-0 z-10 backdrop-blur-xl w-full">
-      <header className="w-auto md:max-w-7xl mx-auto h-14 flex justify-between items-center py-10">
+      <header className="w-[95%] md:max-w-7xl mx-auto h-14 flex justify-between items-center py-10">
         <Link href="/">
           <h3 className="text-lg md:text-2xl">
             <span className="">genkin</span>.ai
@@ -61,7 +61,9 @@ function NavBar() {
         </Link>
 
         <div className="flex items-center space-x-2">
-          <Button variant={'link'}>Privacy Policy</Button>
+          <Button variant={'link'} className="hidden md:inline-flex">
+            Privacy Policy
+          </Button>
 
           <AccountMenu signOut={signOut} />
         </div>

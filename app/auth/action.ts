@@ -9,7 +9,7 @@ export async function signInWithGitHub() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
     options: {
-      redirectTo: `https://genkin.vercel.app/auth/callback`,
+      redirectTo: `http://localhost:3000/auth/callback`,
     },
   });
 

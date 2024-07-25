@@ -32,12 +32,12 @@ function Hero() {
                   No more tracking money on excel sheets!
                 </h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl mx-auto">
-                  Genkin helps you track your inflows and outflows using a
-                  simple chat based system, with analysis of your spends.
+                  Genkin helps you track your cash flows using a chat based
+                  system, and in-depth analysis of your spendings.
                 </p>
               </div>
               <div className="flex flex-col gap-4 min-[400px]:flex-row mx-auto">
-                <Button>Get Started</Button>
+                <Button>Release Announcement 🎉</Button>
                 <Button
                   variant={'outline'}
                   className="flex items-center space-x-2"
@@ -64,17 +64,26 @@ async function NavBar() {
 
   return (
     <header className="px-4 lg:px-6 xl:px-14 h-14 flex justify-between items-center py-12">
-      <h3 className="text-2xl">
+      <h3 className="text-xl md:text-2xl">
         <span className="">genkin</span>.ai
         <span className="animate-ping">_</span>
       </h3>
 
       <div className="flex items-center">
-        <Button variant={'link'}>Privacy Policy</Button>
-        <Button variant={'link'}>Behind the scenes</Button>
+        <Button className="hidden md:inline-flex" variant={'link'}>
+          Privacy Policy
+        </Button>
+        <Button className="hidden md:inline-flex" variant={'link'}>
+          Behind the scenes
+        </Button>
         <form>
           {!user ? (
-            <Button formAction={signInWithGitHub}>Sign In</Button>
+            <Button
+              formAction={signInWithGitHub}
+              className="text-xs md:text-base"
+            >
+              Sign In
+            </Button>
           ) : (
             <Link href="/dashboard">
               <Button>Go to Dashboard</Button>
@@ -89,7 +98,7 @@ async function NavBar() {
 function About() {
   return (
     <main className="flex-1">
-      <section className="w-full grid grid-cols-2 place-items-center px-10 pt-10">
+      <section className="w-full grid grid-cols-1 md:grid-cols-2 place-items-center px-4 md:px-10 pt-10">
         <div className="w-full">
           <Badge variant={'secondary'} className="mb-2">
             What&apos;s Genkin?
@@ -103,34 +112,44 @@ function About() {
             components
           </p>
 
-          <ul className="pl-4 my-10 text-lg flex flex-col space-y-4">
+          <div className="inline-flex md:hidden">
+            <Image
+              className="rounded-2xl shadow-xl"
+              alt="about image"
+              width={900}
+              height={748}
+              src={AboutImage}
+            />
+          </div>
+
+          <ul className="pl-4 my-10 text-lg flex flex-col space-y-6 md:space-y-4">
             <li className="flex items-center">
-              <Sparkle className="mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />
-              <span className="w-fit px-2">
-                {' '}
-                Genkin uses Gemini 1.5 flash to deliver repsonses to prompts
-                quickly.
+              <Sparkle className="mr-3 md:mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />
+              <span className="w-fit px-2 text-base md:text-lg">
+                Genkin leverages advanced Gemini 1.5 Flash technology to provide
+                rapid responses to your queries, giving you instant financial
+                insights.
               </span>
             </li>
             <li className="flex items-center">
-              <MessageCircle className="mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />
-              <span className="w-fit px-2">
-                Use Genkin like any other prompt assistant. Talk to it for
-                adding your day-to-day transactions. eg: &quot;Hey Genkin, I
-                bought a pair of glasses today worth $50&quot;
+              <MessageCircle className="mr-3 md:mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />
+              <span className="w-fit px-2 text-base md:text-lg">
+                Chat with Genkin naturally, just like you would with a friend.
+                Easily add your daily transactions by simply telling Genkin,
+                e.g., &apos;Hey Genkin, I bought a new pair of glasses for
+                $50.&apos;
               </span>
             </li>
             <li className="flex items-center">
-              <PieChart className="mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />{' '}
-              <span className="w-fit px-2">
-                Ananlyse your transactions using interactive charts and
-                in-detail analysis. If lucky, you&apos;ll get some tips from
-                Genkin on how to save money!
+              <PieChart className="mr-3 md:mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />{' '}
+              <span className="w-fit px-2 text-base md:text-lg">
+                Understand your spending habits with clear, interactive charts.
+                Full control over filter and sorting.
               </span>
             </li>
           </ul>
         </div>
-        <div>
+        <div className="hidden md:inline-flex">
           <Image
             className="rounded-2xl shadow-xl"
             alt="about image"

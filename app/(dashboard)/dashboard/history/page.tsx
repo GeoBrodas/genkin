@@ -38,8 +38,8 @@ export default async function HistoryPage({
 
   return (
     <main className="mt-[7rem]">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between">
+      <div className="w-full lg:max-w-7xl mx-auto">
+        <div className="flex justify-center md:justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/dashboard">
               <Button size={'icon'} className="mr-4">

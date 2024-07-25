@@ -137,7 +137,7 @@ export function CategoryAnalysis({ chartData, noData, totalTransactions }) {
           </CardContent>
           <CardFooter className="flex-col gap-2 text-sm">
             <div className="flex items-center font-medium leading-none">
-              <span className="">
+              <span className="text-xs md:text-sm">
                 {`${
                   highestCategory.category.charAt(0).toUpperCase() +
                   highestCategory.category.slice(1)
@@ -146,7 +146,7 @@ export function CategoryAnalysis({ chartData, noData, totalTransactions }) {
               </span>
               <TrendingUp className="h-4 w-4 ml-2" />
             </div>
-            <div className="leading-none text-muted-foreground">
+            <div className="leading-none text-muted-foreground text-xs md:text-sm">
               Showing total transactions for the last{' '}
               {new Date(searchParams.get('to') || lastDay).getDate() -
                 new Date(searchParams.get('from') || firstDay).getDate()}{' '}
