@@ -171,8 +171,6 @@ export async function submitUserMessage(input: string) {
             console.log('from date', fromDate);
             console.log('end date', endDate);
 
-            uiStream.update(<ListofTransactions isLoading />);
-
             const from = new Date(fromDate);
             const to = new Date(endDate);
 
@@ -182,8 +180,22 @@ export async function submitUserMessage(input: string) {
               .from('main')
               .select('id, description, amount, date, category')
               .eq('user_id', user.data.user?.id)
-              .gte('date', from.toISOString())
-              .lte('date', to.toISOString())
+              .gte(
+                'date',
+                from.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })
+              )
+              .lte(
+                'date',
+                to.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })
+              )
               .order('date', { ascending: true });
 
             console.log('Fetched transactions', data);

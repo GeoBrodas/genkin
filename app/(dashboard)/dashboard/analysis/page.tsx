@@ -21,7 +21,7 @@ import {
 async function getInitialData(from?: string, to?: string) {
   'use server';
 
-  const { firstDay, lastDay } = getFirstAndLastDayOfMonth('server');
+  const { firstDay, lastDay } = getFirstAndLastDayOfMonth();
 
   const supabase = createClient();
   const user = await supabase.auth.getUser();

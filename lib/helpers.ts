@@ -18,17 +18,21 @@ export const runAsyncFnWithoutBlocking = (
   fn();
 };
 
-export function getFirstAndLastDayOfMonth(env: 'local' | 'server') {
+export function getFirstAndLastDayOfMonth() {
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth();
 
-  let firstDay = new Date(year, month, env === 'server' ? 2 : 1).toISOString();
-  let lastDay = new Date(
-    year,
-    month + 1,
-    env === 'server' ? 1 : 0
-  ).toISOString();
+  let firstDay = new Date(year, month, 1).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+  let lastDay = new Date(year, month + 1, 0).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
 
   return {
     firstDay,

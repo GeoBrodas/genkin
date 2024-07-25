@@ -10,7 +10,9 @@ import Link from 'next/link';
 async function getInitialData(from?: string, to?: string) {
   'use server';
 
-  const { firstDay, lastDay } = getFirstAndLastDayOfMonth('server');
+  const { firstDay, lastDay } = getFirstAndLastDayOfMonth();
+
+  console.log(firstDay, lastDay);
 
   const supabase = createClient();
   const user = await supabase.auth.getUser();
