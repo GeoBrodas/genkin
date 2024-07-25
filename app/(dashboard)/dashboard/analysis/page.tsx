@@ -70,9 +70,9 @@ export default async function AnalysisPage({
 
   return (
     <main className="mt-[7rem]">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between">
-          <div className="flex items-center space-x-3">
+      <div className="w-full lg:max-w-7xl mx-auto">
+        <div className="flex justify-center md:justify-between">
+          <div className="flex items-center md:space-x-3">
             <Link href="/dashboard">
               <Button size={'icon'} className="mr-4">
                 <ArrowLeftIcon />
@@ -87,7 +87,7 @@ export default async function AnalysisPage({
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-6 mt-16">
+        <div className="grid grid-cols-1 px-4 md:px-0 lg:grid-cols-3 gap-6 mt-16">
           <WeeklyAnalysis chartData={weeklyChartData} />
           <CategoryAnalysis
             totalTransactions={

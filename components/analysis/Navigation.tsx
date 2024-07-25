@@ -8,23 +8,23 @@ function Navigation() {
 
   return (
     <div className="flex items-center space-x-4 w-fit">
-      <Link href={'/dashboard/analysis'}>
+      <Link className="hidden md:inline-flex" href={'/dashboard/analysis'}>
         <div
           className={`${
             pathname === '/dashboard/analysis' &&
             'border-b border-black font-semibold'
-          } hover:cursor-pointer`}
+          } hover:cursor-pointer text-sm md:text-lg`}
         >
           Analyse transactions
         </div>
       </Link>
 
-      <Link href={'/dashboard/history'}>
+      <Link className="hidden md:inline-flex" href={'/dashboard/history'}>
         <div
           className={`${
             pathname === '/dashboard/history' &&
             'border-b border-black font-semibold'
-          } hover:cursor-pointer`}
+          } hover:cursor-pointer text-sm md:text-lg`}
         >
           Transactions history
         </div>

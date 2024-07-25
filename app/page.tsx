@@ -124,8 +124,8 @@ function About() {
               <PieChart className="mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />{' '}
               <span className="w-fit px-2">
                 Ananlyse your transactions using interactive charts and
-                in-detail analysis. If lucky, you'll get some tips from Genkin
-                on how to save money!
+                in-detail analysis. If lucky, you&apos;ll get some tips from
+                Genkin on how to save money!
               </span>
             </li>
           </ul>

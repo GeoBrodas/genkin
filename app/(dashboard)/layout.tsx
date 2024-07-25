@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -18,6 +18,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Genkin - Dashboard',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
 };
 
 export default function RootLayout({
@@ -48,9 +52,9 @@ export default function RootLayout({
 function NavBar() {
   return (
     <div className="fixed top-0 z-10 backdrop-blur-xl w-full">
-      <header className="max-w-7xl mx-auto h-14 flex justify-between items-center py-10">
+      <header className="w-auto md:max-w-7xl mx-auto h-14 flex justify-between items-center py-10">
         <Link href="/">
-          <h3 className="text-2xl">
+          <h3 className="text-lg md:text-2xl">
             <span className="">genkin</span>.ai
             <span className="animate-ping">_</span>
           </h3>
