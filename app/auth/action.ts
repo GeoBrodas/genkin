@@ -3,13 +3,15 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
+const host = `http://localhost:3000`;
+
 export async function signInWithGitHub() {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
     options: {
-      redirectTo: `https://genkin.vercel.app/auth/callback`,
+      redirectTo: `${host}/auth/callback`,
     },
   });
 

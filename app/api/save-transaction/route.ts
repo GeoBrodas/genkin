@@ -1,5 +1,6 @@
 import { formCreateTransaction } from '@/schemas/form';
 import { createClient } from '@/utils/supabase/server';
+import { format } from 'date-fns';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
@@ -10,11 +11,7 @@ export async function POST(request: Request) {
   const data = res.map((item) => ({
     description: item.description,
     category: item.category,
-    date: new Date(item.date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }),
+    date: format(item.date, 'MM-dd-yyyy'),
     amount: item.amount,
   }));
 

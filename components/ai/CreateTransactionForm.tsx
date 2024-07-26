@@ -31,7 +31,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Calendar } from '../ui/calendar';
 import { useState } from 'react';
 import { useToast } from '../ui/use-toast';
-import { Item } from '@radix-ui/react-select';
 
 export default function CreateTransactionForm({
   state,
