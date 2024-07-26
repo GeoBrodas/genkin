@@ -174,6 +174,8 @@ export async function submitUserMessage(input: string) {
             const from = new Date(fromDate);
             const to = new Date(endDate);
 
+            uiStream.update(<ListofTransactions isLoading />);
+
             const supabase = createClient();
             const user = await supabase.auth.getUser();
             const data = await supabase
