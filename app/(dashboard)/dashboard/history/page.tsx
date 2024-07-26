@@ -40,7 +40,7 @@ export default async function HistoryPage({
     <main className="mt-[7rem]">
       <div className="w-full lg:max-w-7xl mx-auto">
         <div className="flex justify-center md:justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center md:space-x-3">
             <Link href="/dashboard">
               <Button size={'icon'} className="mr-4">
                 <ArrowLeftIcon />

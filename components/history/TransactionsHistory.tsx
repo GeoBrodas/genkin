@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { columns } from './columns';
 import { DataTable } from './DataTable';
 import { transactionsSchema } from '@/schemas/form';
+import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 
 async function TransactionsHistory({
   data,
@@ -9,8 +10,14 @@ async function TransactionsHistory({
   data: z.infer<typeof transactionsSchema>;
 }) {
   return (
-    <div className="max-w-7xl mx-auto mt-16">
-      <DataTable columns={columns} data={data} />
+    <div className="w-[95%] md:max-w-7xl mx-auto mt-16">
+      <ScrollArea className="w-[90vw]">
+        <div className="w-max">
+          <DataTable columns={columns} data={data} />
+        </div>
+
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </div>
   );
 }

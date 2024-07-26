@@ -149,88 +149,97 @@ function CreateTransaction({
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="pt-6 space-y-4">
           {fields.map((transaction, index) => (
-            <div key={transaction.id} className="flex items-center space-x-2">
-              <FormField
-                control={control}
-                name={`transactions.${index}.date`}
-                render={({ field }) => (
-                  <FormItem>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            size={'icon'}
-                            className="p-2"
-                            variant={'outline'}
-                          >
-                            <CalendarIcon />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
+            <div
+              key={transaction.id}
+              className="flex flex-col space-y-2 md:space-y-0 md:flex-row items-center md:space-x-2"
+            >
+              <div className="flex items-center space-x-2 w-full md:w-auto">
+                <FormField
+                  control={control}
+                  name={`transactions.${index}.date`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              size={'icon'}
+                              className="p-2"
+                              variant={'outline'}
+                            >
+                              <CalendarIcon />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
 
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={new Date(field.value)}
-                          onSelect={field.onChange}
-                          initialFocus
-                          disabled={(date) =>
-                            date > new Date() || date < new Date('1900-01-01')
-                          }
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={new Date(field.value)}
+                            onSelect={field.onChange}
+                            initialFocus
+                            disabled={(date) =>
+                              date > new Date() || date < new Date('1900-01-01')
+                            }
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormItem>
+                  )}
+                />
+
+                <Input
+                  className="w-full md:w-[15rem]"
+                  placeholder="Bought three equities"
+                  disabled={done}
+                  {...register(`transactions.${index}.description`)}
+                />
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <FormField
+                  defaultValue={transaction.category}
+                  control={control}
+                  name={`transactions.${index}.category`}
+                  render={({ field }) => (
+                    <Select
+                      disabled={done}
+                      key={field.value}
+                      value={field.value}
+                      defaultValue={transaction.category
+                        .split(' ')
+                        .map((word: string) => word.toLowerCase())
+                        .join('-')}
+                      onValueChange={field.onChange}
+                    >
+                      <SelectTrigger className="w-[300px]">
+                        <SelectValue
+                          defaultValue={transaction.category
+                            .split(' ')
+                            .map((word: string) => word.toLowerCase())
+                            .join('-')}
+                          placeholder="Category"
                         />
-                      </PopoverContent>
-                    </Popover>
-                  </FormItem>
-                )}
-              />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categorySchema.options.map(
+                          (category: string, index: number) => (
+                            <SelectItem key={index} value={category}>
+                              {category}
+                            </SelectItem>
+                          )
+                        )}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
 
-              <Input
-                placeholder="Bought three equities"
-                disabled={done}
-                {...register(`transactions.${index}.description`)}
-              />
-              <FormField
-                defaultValue={transaction.category}
-                control={control}
-                name={`transactions.${index}.category`}
-                render={({ field }) => (
-                  <Select
-                    disabled={done}
-                    key={field.value}
-                    value={field.value}
-                    defaultValue={transaction.category
-                      .split(' ')
-                      .map((word: string) => word.toLowerCase())
-                      .join('-')}
-                    onValueChange={field.onChange}
-                  >
-                    <SelectTrigger className="w-[300px]">
-                      <SelectValue
-                        defaultValue={transaction.category
-                          .split(' ')
-                          .map((word: string) => word.toLowerCase())
-                          .join('-')}
-                        placeholder="Category"
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categorySchema.options.map(
-                        (category: string, index: number) => (
-                          <SelectItem key={index} value={category}>
-                            {category}
-                          </SelectItem>
-                        )
-                      )}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-
-              <Input
-                disabled={done}
-                placeholder="$1000"
-                {...register(`transactions.${index}.amount`)}
-              />
+                <Input
+                  disabled={done}
+                  placeholder="$1000"
+                  {...register(`transactions.${index}.amount`)}
+                />
+              </div>
             </div>
           ))}
         </CardContent>
