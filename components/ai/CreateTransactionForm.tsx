@@ -106,11 +106,21 @@ function CreateTransaction({
       console.log(response);
       setIsSubmitting(false);
       setIsDone(true);
-      toast({
-        title: 'Saved transaction',
-        description:
-          'Ask Genkin to list your latest transactions or visit transactions analysis page',
-      });
+
+      if (response.statusText === 'Bad Request') {
+        toast({
+          title: 'Something went wrong!',
+          variant: 'destructive',
+          description:
+            'Try again later. If this problem persists, report an issue on GitHub',
+        });
+      } else {
+        toast({
+          title: 'Saved transaction',
+          description:
+            'Ask Genkin to list your latest transactions or visit transactions analysis page',
+        });
+      }
     } catch (error) {
       console.log(error);
       setIsSubmitting(false);

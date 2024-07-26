@@ -10,7 +10,11 @@ export async function POST(request: Request) {
   const data = res.map((item) => ({
     description: item.description,
     category: item.category,
-    date: item.date,
+    date: new Date(item.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }),
     amount: item.amount,
   }));
 
