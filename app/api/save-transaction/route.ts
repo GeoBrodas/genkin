@@ -1,7 +1,5 @@
-import { formCreateTransaction } from '@/schemas/form';
-import { createClient } from '@/utils/supabase/server';
-import { format } from 'date-fns';
 import { NextResponse } from 'next/server';
+import { createClient } from '@/utils/supabase/server';
 
 export async function POST(request: Request) {
   const res = await request.json();
@@ -11,7 +9,7 @@ export async function POST(request: Request) {
   const data = res.map((item) => ({
     description: item.description,
     category: item.category,
-    date: format(item.date, 'MM-dd-yyyy'),
+    date: item.date,
     amount: item.amount,
   }));
 

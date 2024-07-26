@@ -89,7 +89,11 @@ function CreateTransaction({
     const parseData = values.transactions.map((trans) => ({
       id: trans.id,
       category: trans.category,
-      date: new Date(trans.date).toLocaleString(),
+      date: new Date(trans.date).toLocaleString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }),
       amount: trans.amount,
       description: trans.description,
     }));
