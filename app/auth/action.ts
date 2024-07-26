@@ -3,7 +3,7 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
-const host = `http://localhost:3000`;
+const host = `https://genkin.vercel.app`;
 
 export async function signInWithGitHub() {
   const supabase = createClient();
