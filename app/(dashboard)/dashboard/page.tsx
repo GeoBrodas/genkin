@@ -81,8 +81,8 @@ function IdleDisplayChat({
   exampleHandlerPrompt,
 }) {
   return (
-    <main className="flex flex-col items-center pt-20">
-      <div className="flex flex-col h-[40rem] justify-between w-full max-w-2xl pt-10 mx-auto stretch">
+    <main className="flex flex-col justify-between items-center pt-20 mb-5">
+      <div className="flex flex-col h-[90vh] lg:h-[40rem] justify-between w-[95%] md:max-w-2xl pt-10 mx-auto stretch">
         <div className="w-full">
           <h3 className="text-4xl font-semibold">Genkin AI Chat system</h3>
 
@@ -149,7 +149,7 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between pt-16 overflow-auto">
-      <div className="flex flex-col w-full max-w-2xl pt-10 mx-auto stretch">
+      <div className="flex flex-col w-[98%] md:max-w-2xl pt-10 mx-auto stretch">
         <div className="space-y-6">
           {conversation.map((message: any, i: number) => (
             <div key={i}>

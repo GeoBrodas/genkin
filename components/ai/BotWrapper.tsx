@@ -3,9 +3,9 @@ import { PropsWithChildren } from 'react';
 
 function BotWrapper({ children }: PropsWithChildren) {
   return (
-    <div className="relative flex w-full">
-      <Sparkles className="absolute -left-10 top-4 h-5 w-5" />
-      <div className="relative w-full">{children}</div>
+    <div className="relative flex lg:w-full">
+      <Sparkles className="mt-4 mr-4 lg:mt-0 lg:mr-0 lg:absolute lg:-left-10 lg:top-4 h-5 w-5" />
+      <div className="relative lg:w-full">{children}</div>
     </div>
   );
 }
