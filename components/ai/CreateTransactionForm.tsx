@@ -107,7 +107,11 @@ function CreateTransaction({
       setIsSubmitting(false);
       setIsDone(true);
 
-      if (response.json().message === 'Bad Request') {
+      const data = await response.json();
+
+      console.log('d', data);
+
+      if (data.message === 'Bad Request') {
         toast({
           title: 'Something went wrong!',
           variant: 'destructive',
