@@ -107,7 +107,7 @@ function CreateTransaction({
       setIsSubmitting(false);
       setIsDone(true);
 
-      if (response.statusText === 'Bad Request') {
+      if (response.json().message === 'Bad Request') {
         toast({
           title: 'Something went wrong!',
           variant: 'destructive',
