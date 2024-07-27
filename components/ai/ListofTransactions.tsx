@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import {
   Table,
   TableBody,
@@ -11,7 +13,8 @@ import BotWrapper from './BotWrapper';
 import { ScrollArea } from '../ui/scroll-area';
 import { Skeleton } from '../ui/skeleton';
 import { format } from 'date-fns';
-import { createClient } from '@/utils/supabase/server';
+
+import { unstable_noStore as noStore } from 'next/cache';
 
 interface Props {
   data?: {
@@ -29,6 +32,7 @@ interface Props {
 }
 
 async function ListofTransactions({ data, isLoading, from, to }: Props) {
+  noStore();
   let totalAmount = 0;
 
   data.map((item) => {
