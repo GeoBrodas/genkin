@@ -176,7 +176,7 @@ export async function submitUserMessage(input: string) {
 
             const supabase = createClient();
             const user = await supabase.auth.getUser();
-            const data = await supabase
+            const res = await supabase
               .from('main')
               .select('id, description, amount, date, category')
               .eq('user_id', user.data.user?.id)
@@ -198,9 +198,9 @@ export async function submitUserMessage(input: string) {
               )
               .order('date', { ascending: true });
 
-            console.log('Fetched transactions', data);
+            uiStream.update(<ListofTransactions data={res.data} />);
 
-            uiStream.update(<ListofTransactions data={data.data} />);
+            console.log('Fetched transactions', res.data);
 
             aiState.done({
               ...aiState.get(),

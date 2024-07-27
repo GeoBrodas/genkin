@@ -106,7 +106,7 @@ function IdleDisplayChat({
               className="bg-rose-50 hover:bg-rose-100 transition duration-100 ease-in-out rounded-lg p-4 hover:cursor-pointer"
             >
               <h5 className="font-semibold">List all trasactions</h5>
-              <p>from the past 20 days</p>
+              <p>from the past 10 days</p>
             </div>
             <div
               onClick={() =>

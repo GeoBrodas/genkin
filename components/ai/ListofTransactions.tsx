@@ -11,6 +11,7 @@ import BotWrapper from './BotWrapper';
 import { ScrollArea } from '../ui/scroll-area';
 import { Skeleton } from '../ui/skeleton';
 import { format } from 'date-fns';
+import { createClient } from '@/utils/supabase/server';
 
 interface Props {
   data?: {
@@ -21,13 +22,16 @@ interface Props {
     category: string;
   }[];
 
+  from?: string;
+  to?: string;
+
   isLoading?: boolean;
 }
 
-async function ListofTransactions({ data, isLoading }: Props) {
+async function ListofTransactions({ data, isLoading, from, to }: Props) {
   let totalAmount = 0;
 
-  data?.map((item) => {
+  data.map((item) => {
     if (item.amount < 0) {
       totalAmount += item.amount;
     } else return;
@@ -40,7 +44,7 @@ async function ListofTransactions({ data, isLoading }: Props) {
           <ScrollArea className={`${data.length < 5 ? 'h-auto' : 'h-[300px]'}`}>
             <Table className="">
               <TableCaption className="sticky bottom-0 bg-white pt-3">
-                Fetched you {data?.length} transactions, a total spending of $
+                Fetched you {data.length} transactions, a total spending of $
                 {Math.floor(Math.abs(totalAmount))}
               </TableCaption>
               <TableHeader className="sticky top-0 bg-white">
