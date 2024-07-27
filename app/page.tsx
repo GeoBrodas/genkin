@@ -23,7 +23,7 @@ export default function Home() {
 function Hero() {
   return (
     <main className="flex-1">
-      <section className="w-full py-12 md:py-24 lg:py-32">
+      <section className="w-full py-24 lg:py-32">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="flex justify-center">
             <div className="flex flex-col justify-center space-y-4">
@@ -125,7 +125,7 @@ function About() {
           <ul className="pl-4 my-10 text-lg flex flex-col space-y-6 md:space-y-4">
             <li className="flex items-center">
               <Sparkle className="mr-3 md:mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />
-              <span className="w-fit px-2 text-base md:text-lg">
+              <span className="w-fit px-2 text-sm md:text-lg">
                 Genkin leverages advanced Gemini 1.5 Flash technology to provide
                 rapid responses to your queries, giving you instant financial
                 insights.
@@ -133,7 +133,7 @@ function About() {
             </li>
             <li className="flex items-center">
               <MessageCircle className="mr-3 md:mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />
-              <span className="w-fit px-2 text-base md:text-lg">
+              <span className="w-fit px-2 text-sm md:text-lg">
                 Chat with Genkin naturally, just like you would with a friend.
                 Easily add your daily transactions by simply telling Genkin,
                 e.g., &apos;Hey Genkin, I bought a new pair of glasses for
@@ -142,7 +142,7 @@ function About() {
             </li>
             <li className="flex items-center">
               <PieChart className="mr-3 md:mr-4 bg-rose-50 p-2 h-10 w-10 rounded-xl" />{' '}
-              <span className="w-fit px-2 text-base md:text-lg">
+              <span className="w-fit px-2 text-sm md:text-lg">
                 Understand your spending habits with clear, interactive charts.
                 Full control over filter and sorting.
               </span>

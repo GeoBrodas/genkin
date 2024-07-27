@@ -1,4 +1,4 @@
-import { LogOut } from 'lucide-react';
+import { BotMessageSquare, History, LogOut, PieChart } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenu,
@@ -27,28 +27,28 @@ export default function AccountMenu({ signOut }: Props) {
       <DropdownMenuContent align={'end'}>
         <Link href="/dashboard">
           <DropdownMenuItem className="hover:cursor-pointer">
-            Chat system
+            <BotMessageSquare className="mr-2 h-4 w-4" /> Chat system
           </DropdownMenuItem>
         </Link>
         <Link href="/dashboard/analysis">
           <DropdownMenuItem className="hover:cursor-pointer">
-            Analyse transactions
+            <PieChart className="mr-2 h-4 w-4" /> Analyse transactions
           </DropdownMenuItem>
         </Link>
         <Link href="/dashboard/history">
           <DropdownMenuItem className="hover:cursor-pointer">
-            Transactions history
+            <History className="mr-2 h-4 w-4" /> Transactions history
           </DropdownMenuItem>
         </Link>
-        <DropdownMenuItem className="hover:cursor-pointer">
-          Visit GitHub
-        </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-gray-200" />
 
         <form>
-          <DropdownMenuItem className="hover:cursor-pointer">
-            <button formAction={signOut} className="flex items-center">
+          <DropdownMenuItem className="hover:cursor-pointer flex justify-center">
+            <button
+              formAction={signOut}
+              className="flex justify-center items-center bg-black text-white w-full p-2 rounded-md"
+            >
               Sign Out <LogOut className="ml-3 h-4 w-4" />
             </button>
           </DropdownMenuItem>

@@ -264,7 +264,7 @@ function CreateTransaction({
         </CardFooter>
       </form>
       <Button
-        className="hidden md:inline-flex absolute left-7 bottom-7 z-10"
+        className="hidden md:inline-flex absolute left-7 bottom-7 z-0"
         variant={'outline'}
         onClick={() =>
           append({
