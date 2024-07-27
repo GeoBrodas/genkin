@@ -200,8 +200,6 @@ export async function submitUserMessage(input: string) {
 
             console.log('Fetched transactions', res.data);
 
-            uiStream.update(<ListofTransactions data={res.data} />);
-
             aiState.done({
               ...aiState.get(),
               interactions: [],
@@ -221,6 +219,8 @@ export async function submitUserMessage(input: string) {
                 },
               ],
             });
+
+            uiStream.update(<ListofTransactions data={res.data} />);
           }
         }
       }
