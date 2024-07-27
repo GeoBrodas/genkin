@@ -23,6 +23,8 @@ const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_GENERATIVE_API_KEY,
 });
 
+const supabase = createClient();
+
 // main action for chat prompt submisiion
 export async function submitUserMessage(input: string) {
   'use server';
@@ -174,8 +176,8 @@ export async function submitUserMessage(input: string) {
             const from = new Date(fromDate);
             const to = new Date(endDate);
 
-            const supabase = createClient();
             const user = await supabase.auth.getUser();
+
             const res = await supabase
               .from('main')
               .select('id, description, amount, date, category')
@@ -213,7 +215,7 @@ export async function submitUserMessage(input: string) {
                     name: 'listTransactions',
                     props: {
                       // you may have to change this afterwards !not for author!
-                      data: res.data,
+                      data: args,
                     },
                   },
                 },
