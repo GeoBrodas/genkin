@@ -8,9 +8,11 @@ import { SendHorizontal } from 'lucide-react';
 import { useActions, useUIState } from 'ai/rsc';
 import { useEffect, useRef, useState } from 'react';
 import UserMessage from '@/components/ai/UserMessage';
-import BotMessage from '@/components/ai/BotMessage';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default function DashboardPage() {
+  noStore();
+
   const [input, setInput] = useState<string>('');
   const [idle, setIsNotIdle] = useState<boolean>(true);
   const { submitUserMessage } = useActions();
