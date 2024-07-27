@@ -151,7 +151,7 @@ function CreateTransaction({
           {fields.map((transaction, index) => (
             <div
               key={transaction.id}
-              className="flex flex-col space-y-2 md:space-y-0 md:flex-row items-center md:space-x-2"
+              className="flex flex-col space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-2"
             >
               <div className="flex items-center space-x-2 w-full md:w-auto">
                 <FormField
@@ -196,7 +196,7 @@ function CreateTransaction({
                 />
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-2">
                 <FormField
                   defaultValue={transaction.category}
                   control={control}
@@ -212,7 +212,7 @@ function CreateTransaction({
                         .join('-')}
                       onValueChange={field.onChange}
                     >
-                      <SelectTrigger className="w-[300px]">
+                      <SelectTrigger className="w-full md:w-[300px]">
                         <SelectValue
                           defaultValue={transaction.category
                             .split(' ')
@@ -244,8 +244,9 @@ function CreateTransaction({
           ))}
         </CardContent>
 
-        <CardFooter className="flex justify-end items-center space-x-2">
+        <CardFooter className="flex md:justify-end md:items-center space-x-2">
           <Button
+            className="w-full md:w-auto"
             disabled={done}
             type="submit"
             variant={state === 'saved' ? 'secondary' : 'default'}
@@ -263,7 +264,7 @@ function CreateTransaction({
         </CardFooter>
       </form>
       <Button
-        className="absolute left-7 bottom-7 z-10"
+        className="hidden md:inline-flex absolute left-7 bottom-7 z-10"
         variant={'outline'}
         onClick={() =>
           append({

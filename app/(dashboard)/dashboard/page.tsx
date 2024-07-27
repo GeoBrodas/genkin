@@ -162,7 +162,7 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
             </div>
           ))}
 
-          <BotMessage content="Hey there whats the mateuyfijeuse fse s egseg sgs iovcij ij ij ij ij ininoinvoisanvon on o n" />
+          {/* <BotMessage content="Hey there whats the mateuyfijeuse fse s egseg sgs iovcij ij ij ij ij ininoinvoisanvon on o n" /> */}
 
           <div className="h-px w-full pt-[6rem]" ref={visibilityRef} />
         </div>
@@ -183,8 +183,8 @@ function ChatInput({ handleSubmit, input, setInput, isFixed }) {
     <form
       onSubmit={handleSubmit}
       className={`${
-        isFixed && 'fixed bottom-11'
-      } flex bg-rose-50 justify-between rounded-full w-full max-w-2xl items-center`}
+        isFixed && 'fixed bottom-8 md:bottom-11'
+      } flex bg-rose-50 justify-between rounded-full w-[95%] mx-auto md:w-full md:max-w-2xl items-center`}
     >
       <input
         className={`text-black bg-rose-50 w-full rounded-l-full max-w-2xl p-4 focus:outline-none`}
@@ -192,7 +192,10 @@ function ChatInput({ handleSubmit, input, setInput, isFixed }) {
         placeholder="Type your prompt"
         onChange={(e) => setInput(e.target.value)}
       />
-      <SendHorizontal className="relative text-red-600 z-10 right-4" />
+      <SendHorizontal
+        onClick={handleSubmit}
+        className="relative h-5 w-5 mx-5 text-red-600"
+      />
     </form>
   );
 }
