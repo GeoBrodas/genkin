@@ -143,7 +143,7 @@ export async function submitUserMessage(input: string) {
 
             console.log('entries', entries);
 
-            uiStream.update(
+            uiStream.done(
               <InputTransaction transactions={entries} state="idle" />
             );
 
@@ -221,13 +221,13 @@ export async function submitUserMessage(input: string) {
               ],
             });
 
-            uiStream.update(<ListofTransactions data={res.data} />);
+            uiStream.done(<ListofTransactions data={res.data} />);
           }
         }
       }
 
       textStream.done();
-      uiStream.done();
+      // uiStream.done();
       messageStream.done();
     } catch (e) {
       console.log(e);
