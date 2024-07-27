@@ -23,8 +23,6 @@ const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_GENERATIVE_API_KEY,
 });
 
-const supabase = createClient();
-
 // main action for chat prompt submisiion
 export async function submitUserMessage(input: string) {
   'use server';
@@ -176,6 +174,7 @@ export async function submitUserMessage(input: string) {
             const from = new Date(fromDate);
             const to = new Date(endDate);
 
+            const supabase = createClient();
             const user = await supabase.auth.getUser();
 
             const res = await supabase
