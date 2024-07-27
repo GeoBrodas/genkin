@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import BotWrapper from './BotWrapper';
-import { ScrollArea } from '../ui/scroll-area';
+import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 import { Skeleton } from '../ui/skeleton';
 import { format } from 'date-fns';
 
@@ -45,8 +45,12 @@ async function ListofTransactions({ data, isLoading, from, to }: Props) {
     <BotWrapper>
       {!isLoading ? (
         data.length > 0 ? (
-          <ScrollArea className={`${data.length < 5 ? 'h-auto' : 'h-[300px]'}`}>
-            <Table className="">
+          <ScrollArea
+            className={`${
+              data.length < 5 ? 'h-auto' : 'h-[300px]'
+            } w-[300px] md:w-auto`}
+          >
+            <Table className="w-full">
               <TableCaption className="sticky bottom-0 bg-white pt-3">
                 Fetched you {data.length} transactions, a total spending of $
                 {Math.floor(Math.abs(totalAmount))}
@@ -73,6 +77,8 @@ async function ListofTransactions({ data, isLoading, from, to }: Props) {
                 ))}
               </TableBody>
             </Table>
+
+            <ScrollBar className="md:hidden" orientation="horizontal" />
           </ScrollArea>
         ) : (
           <p>

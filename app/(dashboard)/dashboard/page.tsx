@@ -8,6 +8,7 @@ import { SendHorizontal } from 'lucide-react';
 import { useActions, useUIState } from 'ai/rsc';
 import { useEffect, useRef, useState } from 'react';
 import UserMessage from '@/components/ai/UserMessage';
+import BotMessage from '@/components/ai/BotMessage';
 
 export default function DashboardPage() {
   const [input, setInput] = useState<string>('');
@@ -84,7 +85,7 @@ function IdleDisplayChat({
 }) {
   return (
     <main className="flex flex-col justify-between items-center pt-20 mb-5">
-      <div className="flex flex-col h-[90vh] lg:h-[40rem] justify-between w-[95%] md:max-w-2xl pt-10 mx-auto stretch">
+      <div className="flex flex-col h-[90vh] lg:h-[40rem] justify-between w-[90%] md:max-w-2xl pt-10 mx-auto stretch">
         <div className="w-full">
           <h3 className="text-4xl font-semibold">Genkin AI Chat system</h3>
 
@@ -151,8 +152,8 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between pt-16 overflow-auto">
-      <div className="flex flex-col w-[98%] md:max-w-2xl pt-10 mx-auto stretch">
-        <div className="space-y-6">
+      <div className="flex flex-col w-[90%] md:max-w-2xl pt-10 mx-auto stretch">
+        <div className="space-y-10 md:space-y-6">
           {conversation.map((message: any, i: number) => (
             <div key={i}>
               {message.spinner}
@@ -160,6 +161,8 @@ function ActiveChat({ conversation, handleSubmit, input, setInput }) {
               {message.attachments}
             </div>
           ))}
+
+          <BotMessage content="Hey there whats the mateuyfijeuse fse s egseg sgs iovcij ij ij ij ij ininoinvoisanvon on o n" />
 
           <div className="h-px w-full pt-[6rem]" ref={visibilityRef} />
         </div>
