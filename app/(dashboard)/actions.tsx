@@ -198,9 +198,9 @@ export async function submitUserMessage(input: string) {
               )
               .order('date', { ascending: true });
 
-            uiStream.update(<ListofTransactions data={res.data} />);
-
             console.log('Fetched transactions', res.data);
+
+            uiStream.update(<ListofTransactions data={res.data} />);
 
             aiState.done({
               ...aiState.get(),
@@ -215,8 +215,7 @@ export async function submitUserMessage(input: string) {
                     name: 'listTransactions',
                     props: {
                       // you may have to change this afterwards !not for author!
-                      endDate,
-                      fromDate,
+                      data: res.data,
                     },
                   },
                 },
