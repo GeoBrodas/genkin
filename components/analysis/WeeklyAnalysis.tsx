@@ -20,6 +20,7 @@ import {
 import { getCurrentWeekDates } from '@/lib/helpers';
 import { format } from 'date-fns';
 import { ChartData } from '@/lib/types';
+import BlurPlaceholder from '../BlurPlaceholder';
 
 const chartConfig = {
   totalOutflow: {
@@ -41,7 +42,7 @@ export default function WeeklyAnalysis({
   let highestDay = '';
 
   function mapHighestDay() {
-    if (chartData.every((data) => data.totalOutflow === 0)) return;
+    if (chartData.every((data) => data.amount === 0)) return;
 
     chartData.map((data) => {
       if (data.totalOutflow > highest) {
@@ -53,8 +54,12 @@ export default function WeeklyAnalysis({
 
   mapHighestDay();
 
+  console.log(highest, highestDay);
+
   return (
-    <Card className="">
+    <Card className="relative">
+      {chartData.every((data) => data.amount === 0) && <BlurPlaceholder />}
+
       <CardHeader>
         <CardTitle>Weekly spendings</CardTitle>
         <CardDescription>

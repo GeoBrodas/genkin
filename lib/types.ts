@@ -19,4 +19,8 @@ export type Message = {
   };
 };
 
-export type ChartData = { day: string; totalOutflow: number }[];
+export type ChartData = {
+  day: string;
+  amount?: number;
+  totalOutflow?: number;
+}[];

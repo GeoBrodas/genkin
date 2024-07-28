@@ -36,15 +36,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavBar />
 
-        <AI
-          initialAIState={{
-            //@ts-ignore
-            interactions: [],
-            messages: [],
-          }}
-        >
-          {children}
-        </AI>
+        {children}
         <Toaster />
       </body>
     </html>
