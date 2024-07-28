@@ -1,8 +1,12 @@
 export const dynamic = 'force-dynamic';
-import Dashboard from '@/components/dashboard/Dashboard';
+
 import { AI } from '../actions';
+import Dashboard from '@/components/dashboard/Dashboard';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default function DashboardPage() {
+  noStore();
+
   return (
     <AI
       initialAIState={{
