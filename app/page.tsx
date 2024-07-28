@@ -38,13 +38,16 @@ function Hero() {
               </div>
               <div className="flex flex-col gap-4 min-[400px]:flex-row mx-auto">
                 <Button>Release Announcement 🎉</Button>
-                <Button
-                  variant={'outline'}
-                  className="flex items-center space-x-2"
-                >
-                  <Github className="h-5 w-5" />
-                  <span>Star us on GitHub</span>
-                </Button>
+
+                <Link href="https://github.com/GeoBrodas/genkin">
+                  <Button
+                    variant={'outline'}
+                    className="flex items-center space-x-2"
+                  >
+                    <Github className="h-5 w-5" />
+                    <span>Star us on GitHub</span>
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -70,12 +73,12 @@ async function NavBar() {
       </h3>
 
       <div className="flex items-center">
-        <Button className="hidden md:inline-flex" variant={'link'}>
-          Privacy Policy
-        </Button>
-        <Button className="hidden md:inline-flex" variant={'link'}>
-          Behind the scenes
-        </Button>
+        <Link href="https://www.linkedin.com/in/georgeyvb/">
+          <Button className="hidden md:inline-flex" variant={'link'}>
+            About the developer
+          </Button>
+        </Link>
+
         <form>
           {!user ? (
             <Button
