@@ -174,33 +174,6 @@ export async function submitUserMessage(input: string) {
             const from = new Date(fromDate);
             const to = new Date(endDate);
 
-            const supabase = createClient();
-            const user = await supabase.auth.getUser();
-
-            const res = await supabase
-              .from('main')
-              .select('id, description, amount, date, category')
-              .eq('user_id', user.data.user?.id)
-              .gte(
-                'date',
-                from.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                })
-              )
-              .lte(
-                'date',
-                to.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                })
-              )
-              .order('date', { ascending: true });
-
-            console.log('Fetched transactions', res.data);
-
             aiState.done({
               ...aiState.get(),
               interactions: [],
@@ -221,7 +194,7 @@ export async function submitUserMessage(input: string) {
               ],
             });
 
-            uiStream.update(<ListofTransactions data={res.data} />);
+            uiStream.update(<ListofTransactions from={from} to={to} />);
           }
         }
       }

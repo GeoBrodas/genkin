@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Table,
   TableBody,
@@ -13,6 +15,8 @@ import { Skeleton } from '../ui/skeleton';
 import { format } from 'date-fns';
 
 import { unstable_noStore as noStore } from 'next/cache';
+import { createClient } from '@/utils/supabase/client';
+import { useEffect, useState } from 'react';
 
 interface Props {
   data?: {
@@ -23,26 +27,65 @@ interface Props {
     category: string;
   }[];
 
-  from?: string;
-  to?: string;
+  from?: any;
+  to?: any;
 
   isLoading?: boolean;
 }
 
-async function ListofTransactions({ data, isLoading, from, to }: Props) {
-  noStore();
+function ListofTransactions({ from, to }: Props) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    async function getData() {
+      const supabase = createClient();
+      const user = await supabase.auth.getUser();
+
+      const res = await supabase
+        .from('main')
+        .select('id, description, amount, date, category')
+        .eq('user_id', user.data.user?.id)
+        .gte(
+          'date',
+          from.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
+        )
+        .lte(
+          'date',
+          to.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
+        )
+        .order('date', { ascending: true });
+
+      setData(res.data);
+      setIsLoading(false);
+    }
+
+    getData();
+  }, []);
+
+  console.log('fetched on rsc', data);
+
   let totalAmount = 0;
 
-  data.map((item) => {
-    if (item.amount < 0) {
-      totalAmount += item.amount;
-    } else return;
-  });
+  data &&
+    data.map((item) => {
+      if (item.amount < 0) {
+        totalAmount += item.amount;
+      } else return;
+    });
 
   return (
     <BotWrapper>
       {!isLoading ? (
-        data.length > 0 ? (
+        data ? (
           <ScrollArea
             className={`${
               data.length < 5 ? 'h-auto' : 'h-[300px]'
