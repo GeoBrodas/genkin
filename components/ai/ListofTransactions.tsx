@@ -14,7 +14,6 @@ import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 import { Skeleton } from '../ui/skeleton';
 import { format } from 'date-fns';
 
-import { unstable_noStore as noStore } from 'next/cache';
 import { createClient } from '@/utils/supabase/client';
 import { useEffect, useState } from 'react';
 
@@ -85,7 +84,7 @@ function ListofTransactions({ from, to }: Props) {
   return (
     <BotWrapper>
       {!isLoading ? (
-        data ? (
+        data.length > 0 ? (
           <ScrollArea
             className={`${
               data.length < 5 ? 'h-auto' : 'h-[300px]'
@@ -122,9 +121,9 @@ function ListofTransactions({ from, to }: Props) {
             <ScrollBar className="md:hidden" orientation="horizontal" />
           </ScrollArea>
         ) : (
-          <p>
-            Looks like theres no data for this period. Add some or use a
-            different range
+          <p className="p-4">
+            Looks like theres no data available in this period. Add some or use
+            a different range of dates
           </p>
         )
       ) : (

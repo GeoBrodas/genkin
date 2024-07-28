@@ -15,8 +15,7 @@ import BotMessage from '@/components/ai/BotMessage';
 import InputTransaction from '@/components/ai/InputTransaction';
 import ListofTransactions from '@/components/ai/ListofTransactions';
 import UserMessage from '@/components/ai/UserMessage';
-import { categorySchema, formCreateTransaction } from '@/schemas/form';
-import { createClient } from '@/utils/supabase/server';
+import { categorySchema } from '@/schemas/form';
 
 // google api key
 const google = createGoogleGenerativeAI({

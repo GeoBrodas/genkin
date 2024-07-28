@@ -20,6 +20,8 @@ import {
 } from '@/components/ui/table';
 import { Button } from '../ui/button';
 import { useState } from 'react';
+import { Sheet } from 'lucide-react';
+import * as XLSX from 'xlsx';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -48,6 +50,24 @@ export function DataTable<TData, TValue>({
       },
     },
   });
+
+  console.log(data);
+
+  const exportToExcel = () => {
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(data);
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Products');
+
+    // customize header names
+    XLSX.utils.sheet_add_aoa(worksheet, [
+      ['Id', 'Short description', 'Amount', 'Date', 'Category'],
+    ]);
+
+    XLSX.writeFile(workbook, `${data[0].date}_to_${data.at(-1).date}.xlsx`, {
+      compression: true,
+    });
+  };
 
   return (
     <div>
@@ -103,23 +123,29 @@ export function DataTable<TData, TValue>({
       </div>
 
       {/* pagination control */}
-      <div className="flex items-center md:justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
+      <div className="flex items-center md:justify-between space-x-2 py-4">
+        <Button onClick={exportToExcel}>
+          Export to Excel <Sheet className="ml-2" />
         </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );
