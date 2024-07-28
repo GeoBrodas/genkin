@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic';
-
 import { AI } from '../actions';
 import Dashboard from '@/components/dashboard/Dashboard';
 import { unstable_noStore as noStore } from 'next/cache';

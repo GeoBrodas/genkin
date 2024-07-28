@@ -1,7 +1,5 @@
 'use client';
 
-export const dynamic = 'force-dynamic';
-
 import { nanoid } from '@/lib/helpers';
 import { SendHorizontal } from 'lucide-react';
 import { useActions, useUIState } from 'ai/rsc';
@@ -10,8 +8,6 @@ import UserMessage from '@/components/ai/UserMessage';
 import { unstable_noStore as noStore } from 'next/cache';
 
 export default function Dashboard() {
-  noStore();
-
   const [input, setInput] = useState<string>('');
   const [idle, setIsNotIdle] = useState<boolean>(true);
   const { submitUserMessage } = useActions();
