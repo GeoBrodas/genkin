@@ -37,7 +37,9 @@ function Hero() {
                 </p>
               </div>
               <div className="flex flex-col gap-4 min-[400px]:flex-row mx-auto">
-                <Button>Release Announcement 🎉</Button>
+                <Link href="https://geobrodas.hashnode.dev/genkin-no-more-spreadsheets-for-tracking-cash-flow">
+                  <Button>Release Announcement 🎉</Button>
+                </Link>
 
                 <Link href="https://github.com/GeoBrodas/genkin">
                   <Button

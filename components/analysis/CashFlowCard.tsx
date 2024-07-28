@@ -32,9 +32,9 @@ function CashFlowCard({ type, amount }: Props) {
           {`\u20B9`}
           {Math.abs(amount)}
         </div>
-        <p className="text-xs text-muted-foreground">
+        {/* <p className="text-xs text-muted-foreground">
           Money earnt from salary was highest
-        </p>
+        </p> */}
       </CardContent>
     </Card>
   );
